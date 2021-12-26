@@ -1,6 +1,7 @@
 import { mainTheme } from './Theme';
 import {ThemeProvider} from '@mui/material/styles';
 import Navbar from './Components/Navbar';
+import Signup from './Components/Authentication/Signup';
 
 
 const App = () => {
@@ -8,6 +9,7 @@ const App = () => {
     <ThemeProvider theme={mainTheme}>
       <div className='App'>
         <Navbar />
+        <Signup/> 
       </div>
     </ThemeProvider>
   );

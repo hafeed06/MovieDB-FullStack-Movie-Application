@@ -15,6 +15,7 @@ const DatePicker = () => {
 
     const handleDateChange = (newValue) => {
       setValue(newValue);
+      console.log(newValue)
     };
   
     return (

@@ -23,7 +23,7 @@ const Navbar = () => {
           </Typography> */}
           <Stack spacing={0} direction="row">
           <LiveTvIcon fontSize="large"/>
-          <Typography variant="h5" mt='5px' ml='5px'>MovieBase</Typography>
+          <Typography variant="h5" mt='5px' ml='5px'>MovieDB</Typography>
           {/* <MenuItem>My Information</MenuItem>
           <MenuItem>Movies list</MenuItem>
           <MenuItem>Ratings</MenuItem> */}

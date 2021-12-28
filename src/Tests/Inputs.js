@@ -10,12 +10,13 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { styled } from '@mui/material/styles';
 import { Button, Typography, Paper } from '@mui/material';
 
 const bigInput = {width:'95%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 const smallInput = {width:'46%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 
-const Signup = () => {
+const Inputs = () => {
 
     const initialState = {
         firstname:'',
@@ -102,4 +103,4 @@ const Signup = () => {
     )
 }
 
-export default Signup
+export default Inputs

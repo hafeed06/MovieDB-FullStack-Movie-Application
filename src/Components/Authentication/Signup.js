@@ -46,8 +46,9 @@ const Signup = () => {
       setData({...data, birthday:newValue})
     };
 
-    const submitForm = () => {
-        console.log(data);
+    const handleSubmit = (e) => {
+      console.log("Form Submitted Success")
+      e.preventDefault()
       }
 
     return (
@@ -57,7 +58,7 @@ const Signup = () => {
         <Grid item xs={12} sm={8} md={4} ml="auto" mr="auto">
         <Typography variant="h4" sx={{textAlign:'center'}} pb={2}color="primary">Create an Account </Typography>
         <Paper sx={{paddingTop:2, paddingLeft:2, paddingRight:2, justifyContent:'center', textAlign:'center'}}>
-            
+        <form onSubmit={handleSubmit}>
             <TextField name="firstname" label="First Name" variant="outlined" sx={smallInput} onChange={handleChange}/>
             <TextField name="lastname" label="Last Name" variant="outlined" sx={smallInput} onChange={handleChange}/>
             <TextField name="username" label="Username" variant="outlined" sx={bigInput} onChange={handleChange}/>
@@ -92,7 +93,8 @@ const Signup = () => {
             <TextField name="city" label="City" variant="outlined" sx={smallInput} onChange={handleChange}/>
             <TextField name="number" label="Number" variant="outlined" sx={smallInput} onChange={handleChange}/>
             <TextField name="street" label="Street" variant="outlined" sx={bigInput} onChange={handleChange}/>
-            <Button variant="contained" color="primary" sx={{width:'50%'}} onClick={submitForm}>Signup</Button>
+            <Button variant="contained" type="submit" color="primary" sx={{width:'50%'}}>Signup</Button>
+          </form>
             <Typography p={1} variant="subtitle2">Already have an account? Sign in!</Typography>
           </Paper>
         </Grid>

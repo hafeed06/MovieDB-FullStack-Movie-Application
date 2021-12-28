@@ -1,0 +1,11 @@
+{
+  "name": "moviedb",
+  "version": "1.0.0",
+  "description": "MovieDB Node Back End",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abdelhafid El Bekkaoui",
+  "license": "ISC"
+}

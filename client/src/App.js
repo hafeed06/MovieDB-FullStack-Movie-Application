@@ -1,8 +1,9 @@
 import { mainTheme } from './Theme';
 import {ThemeProvider} from '@mui/material/styles';
 import Navbar from './Components/Navbar';
-import Signup from './Components/Authentication/Signup';
-import Login from './Components/Authentication/Login';
+import Signup from './Components/Forms/Authentication/Signup';
+import Login from './Components/Forms/Authentication/Login';
+import NewMovie from './Components/Forms/Authentication/Movies/NewMovie';
 
 
 const App = () => {
@@ -11,7 +12,8 @@ const App = () => {
       <div className='App'>
         <Navbar />
         {/* <Signup/>  */}
-        <Login />
+        {/* <Login /> */}
+        <NewMovie /> 
       </div>
     </ThemeProvider>
   );

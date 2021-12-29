@@ -2,10 +2,14 @@ const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config();
 const Movie = require('./schemas/MovieInformation')
+// CORS For fixing Policy issue : 
+// TODO :  needs to be more restricted for production
+var cors = require('cors')
 
 const app = express()
 const port = process.env.PORT
 // This is to make sure the app accepts JSON requests 
+app.use(cors())
 app.use(express.json())
 
 // DB 
@@ -46,7 +50,6 @@ const data = {
 // Routes: 
 
 app.get('/movies/add', (req,res) => {
-    // console.log(req.body) 
     res.status(200).send("Successfull Operation")
 })
 

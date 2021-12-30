@@ -1,10 +1,12 @@
 const express = require('express')
-const router = express.router() 
+const mongoose = require('mongoose')
+const mydb = require('../mongodb/mongo')
+require('dotenv').config();
+const router = express.Router() 
 
 router.get('/add', (req,res) => {
     res.status(200).send("Successfull Operation")
 })
-
 
 router.post('/add', async (req,res) => {
     try {
@@ -33,3 +35,5 @@ router.get('/', async (req,res) => {
           res.status(200).send(error)
       }
 })
+
+module.exports = router

@@ -13,7 +13,7 @@ app.use(express.json())
 // MongoDB connexion()
 mydb.connexion()
 // Routes: 
-app.use('/movies', moviesRouter)
+app.use('/api/movies', moviesRouter)
 // Start Server
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

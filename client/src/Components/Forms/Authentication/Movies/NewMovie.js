@@ -8,7 +8,7 @@ import NewMovieForm from './NewMovieForm';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 // AXIOS Config
 const api = axios.create({
-  baseURL: "http://localhost:5000"
+  baseURL: "http://localhost:5000/api"
 })
 // Styling
 const bigInput = {width:'95%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}

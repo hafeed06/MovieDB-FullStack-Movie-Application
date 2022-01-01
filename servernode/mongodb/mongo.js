@@ -31,6 +31,15 @@ const connexion = async () => {
     } catch (error) {
         console.log(error)
     }
-}
+  }
 
-module.exports = {connexion, addMovie, getAllMovies}
+    const getMovieById = async (movieId) => {
+      try {
+        const movieRecords = await Movie.findById(movieId)
+        return movieRecords
+      } catch (error) {
+          console.log("error")
+      }
+    }
+
+module.exports = {connexion, addMovie, getAllMovies, getMovieById}

@@ -6,7 +6,7 @@ import MovieCard from './MoviesViewComponents/MovieCard';
 import axios from 'axios'
 import LoadingBar from './MoviesViewComponents/LoadingBar';
 const api = axios.create({
-    baseURL: "http://localhost:5000"
+    baseURL: "http://localhost:5000/api"
   })
 
 
@@ -30,7 +30,14 @@ const ListMovies = () => {
         <Grid container spacing={2} sx={{justifyContent:'center', textAlign:'center', alignItems:'center'}}>
         {
             !movieList? <LoadingBar />:
-            movieList.map((e,k) => <MovieCard title={movieList[k].title} category={movieList[k].category}/>)
+            movieList.map(
+                (e,k) => <MovieCard 
+                title={movieList[k].title}
+                category={movieList[k].category}
+                releaseDate={movieList[k].releaseDate}
+                movieDirector={movieList[k].movieDirector}
+                 />
+                )
         }
         </Grid>
         </Box>

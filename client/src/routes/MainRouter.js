@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Signup from '../Components/Forms/Authentication/Signup';
 import Login from '../Components/Forms/Authentication/Login';
 import NewMovie from '../Components/Forms/Authentication/Movies/NewMovie';
-import ListMovies from '../Components/views/ListMovies';
+import ListMovies from '../Components/Movies/ListMovies';
 import Navbar from '../Components/Navbar/Navbar';
 
 const mainrouter = () => {

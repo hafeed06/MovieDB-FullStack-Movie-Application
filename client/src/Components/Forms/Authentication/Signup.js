@@ -11,6 +11,10 @@ import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Button, Typography, Paper } from '@mui/material';
+import axios from 'axios'
+const api = axios.create({
+  baseURL: "http://localhost:8080"
+})
 
 const bigInput = {width:'95%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 const smallInput = {width:'46%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
@@ -32,6 +36,7 @@ const Signup = () => {
         street:'',
     }
     // Data Handling 
+    const [submitted, setSubmitted] = useState(false)
     const [data, setData] = useState(initialState)
     const handleChange = (e) => {
         setData({...data, [e.target.name]:e.target.value})
@@ -47,8 +52,21 @@ const Signup = () => {
     };
 
     const handleSubmit = (e) => {
-      console.log("Form Submitted Success")
       e.preventDefault()
+      // Posting to PGSQL User Table
+      const userData = {
+        "id":0,
+        "username":data.username, 
+        "password":data.password
+      }
+      api.post('/addusers', data, {headers: {"Access-Control-Allow-Origin": "*"}})
+      .then(function (response) {
+        console.log(response);
+        setSubmitted(true)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
       }
 
     return (

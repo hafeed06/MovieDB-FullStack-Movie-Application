@@ -9,6 +9,19 @@ public class User {
     @Column(name = "userid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
+    @Column(name = "username")
+    private String username;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Column(name="password")
+    private String password;
 
     public String getUsername() {
         return username;
@@ -18,8 +31,6 @@ public class User {
         this.username = username;
     }
 
-    @Column(name = "username")
-    private String username;
 
     public Long getUserID() {
         return userID;

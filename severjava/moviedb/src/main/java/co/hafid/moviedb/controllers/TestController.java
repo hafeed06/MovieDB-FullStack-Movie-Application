@@ -11,6 +11,6 @@ import java.util.List;
 public class TestController {
     @RequestMapping(path = "/", method = RequestMethod.GET)
         public String Greeting() {
-        return "Hello Folks";
+        return "Rest API is Running ...";
     }
 }

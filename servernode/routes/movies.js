@@ -1,8 +1,10 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const mydb = require('../mongodb/mongo')
+const express  =    require('express')
+const mongoose =    require('mongoose')
+const mydb     =    require('../mongodb/mongo')
+const router   =    express.Router() 
+
 require('dotenv').config();
-const router = express.Router() 
+
 
 router.get('/add', (req,res) => {
     res.status(200).send("Successfull Operation")

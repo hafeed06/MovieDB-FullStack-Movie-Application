@@ -2,28 +2,49 @@ package co.hafid.moviedb.entities;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "users", schema = "public")
+import static javax.persistence.GenerationType.SEQUENCE;
+
+@Entity(name = "User")
+@Table(
+        name   = "users",
+        schema = "public",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "user_username_unique", columnNames = "username"),
+        }
+)
 public class User {
     @Id
-    @Column(name = "userid")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "user_sequence",
+            sequenceName = "user_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = SEQUENCE,
+            generator = "user_sequence"
+    )
+    @Column(
+            name = "userid"
+    )
     private Long userid;
-    @Column(name = "username")
+    @Column(
+            name = "username",
+            nullable = false
+    )
     private String username;
-
-    @Column(name="password")
+    @Column(
+            name = "password",
+            nullable = false
+    )
     private String password;
 
-    public String getPassword() {
-        return password;
+    public Long getUserid() {
+        return userid;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
-
-
 
     public String getUsername() {
         return username;
@@ -33,16 +54,27 @@ public class User {
         this.username = username;
     }
 
-    public Long getUserid() {
-        return userid;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserid(Long userID) {
-        this.userid = userID;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public User() {
-
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
+    public User() {}
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userid=" + userid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

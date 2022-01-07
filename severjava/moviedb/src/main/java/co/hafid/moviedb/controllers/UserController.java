@@ -24,10 +24,8 @@ public class UserController {
     //TODO Remove this route before moving to production.
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List> getUsers() {
-        return ResponseEntity.status(201).body(userService.getUsers());
+        return ResponseEntity.status(200).body(userService.getUsers());
     }
-
-    // Use ResponseEntity<What is the content of the Response
 
     @PostMapping(path = "/addUsers")
     @CrossOrigin(origins = "http://localhost:3000")

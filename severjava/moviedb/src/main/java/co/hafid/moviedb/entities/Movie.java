@@ -3,32 +3,61 @@ package co.hafid.moviedb.entities;
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity
-@Table(name = "movies")
+import static javax.persistence.GenerationType.SEQUENCE;
+
+@Entity(name = "Movie")
+@Table(
+        name   = "movies",
+        schema = "public",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "movies_movie_ref_unique", columnNames = "movie_ref")
+        }
+)
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "movie_id")
-    private Long id;
-    @Column(name = "title")
+    @SequenceGenerator(
+            name = "movie_sequence",
+            sequenceName = "movie_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = SEQUENCE,
+            generator = "movie_sequence"
+    )
+    @Column(
+            name = "movie_id"
+    )
+    private Long movieId;
+    @Column(
+            name = "title",
+            nullable = false
+    )
     private String title;
-    @Column(name = "added_date")
+    @Column(
+            name = "added_date",
+            nullable = false
+    )
     private Date addedDate;
+    @Column(
+            name = "movie_ref",
+            nullable = false
+    )
+    private String movieRef;
 
     public Movie() {}
-
-    public Movie(String title, Date addedDate) {
+    public Movie(String title, Date addedDate, String movieRef) {
         this.title = title;
         this.addedDate = addedDate;
+        this.movieRef = movieRef;
     }
 
-    public Long getId() {
-        return id;
+    public Long getMovieId() {
+        return movieId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMovieId(Long movieId) {
+        this.movieId = movieId;
     }
 
     public String getTitle() {
@@ -45,5 +74,13 @@ public class Movie {
 
     public void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
+    }
+
+    public String getMovieRef() {
+        return movieRef;
+    }
+
+    public void setMovieRef(String movieRef) {
+        this.movieRef = movieRef;
     }
 }

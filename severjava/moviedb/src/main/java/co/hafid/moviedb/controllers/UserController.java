@@ -1,65 +1,49 @@
 package co.hafid.moviedb.controllers;
 
-import co.hafid.moviedb.entities.Contact;
 import co.hafid.moviedb.entities.User;
-import co.hafid.moviedb.service.ContactTempService;
 import co.hafid.moviedb.service.UserService;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class UserController {
+    //TODO Change Origin before Production
 
     @Autowired
     UserService userService;
-    @Autowired
-    ContactTempService contactTempService;
 
-    @GetMapping(path = "/users")
-    //TODO Remove this route before moving to production.
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<List> getUsers() {
+
+    // ----- FETCH ALL THE USERS  ----- //
+    @GetMapping(path = "/users")
+    public ResponseEntity<List> getAllUsers() {
         return ResponseEntity.status(200).body(userService.getUsers());
     }
-
-    @PostMapping(path = "/addUsers")
-    @CrossOrigin(origins = "http://localhost:3000")
+    // ----- FETCH 1 USER  ----- //
+    @GetMapping(path = "/users/{id}")
+    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+        User user = userService.getUser(id);
+        return ResponseEntity.status(200).body(user);
+    }
+    // ----- ADD 1 USER  ----- //
+    @PostMapping(path = "/users/addUser")
     public User addUser(@RequestBody User user) {
         return userService.addUser(user);
     }
-    // Example: localhost:8080/deleteUser {"userid":6}
-    @PostMapping(path = "/deleteUser")
-    //TODO Change this address with the Front End Server Before Moving to Production
-    @CrossOrigin(origins = "http://localhost:3000")
-    public void deleteUser(@RequestBody Map<String, Long> request) {
-        JSONObject jsonObject = new JSONObject(request);
-        Long id = request.get("userid");
-        userService.deleteUser(id);
+
+    // ----- DELETE 1 USER  ----- //
+    @DeleteMapping(path = "/users/deleteUser")
+    public void delUser(@RequestBody User user) {
+        userService.deleteUser(user.getUserid());
+        // TODO : Response Management
     }
-
-
-    @GetMapping("contacts")
-    public List<Contact> getContacts() {
-        return contactTempService.getAllContacts();
+    // ----- CHECK IF USERNAME IS ALREADY REGISTERED  ----- //
+    @PostMapping("/users/isUsernameRegistered")
+    // TODO On the front end make sure to register usernames in lowercase
+    public boolean isEmailRegistered(@RequestBody User user) {
+        return userService.isUsernameRegistered(user);
     }
-
-    @PostMapping("contacts/checkContact")
-    public void checkContact(Contact contact) {
-        contactTempService.checkContact(contact);
-    }
-
-
-
-
-
-
-
-
-
-
 }

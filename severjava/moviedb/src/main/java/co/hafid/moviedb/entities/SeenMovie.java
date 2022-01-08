@@ -5,12 +5,12 @@ import java.util.Date;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
-@Entity(name = "SeenMovies")
+@Entity(name = "SeenMovie")
 @Table(
         name   = "seenmovies",
         schema = "public"
       )
-public class SeenMovies {
+public class SeenMovie {
     @Id
     @SequenceGenerator(
             name = "seenMovie_sequence",
@@ -38,8 +38,8 @@ public class SeenMovies {
     )
     private String movieRef;
 
-    public SeenMovies() {}
-    public SeenMovies(Integer userid, Date seenDate, String movieRef) {
+    public SeenMovie() {}
+    public SeenMovie(Integer userid, Date seenDate, String movieRef) {
         this.userid = userid;
         this.seenDate = seenDate;
         this.movieRef = movieRef;

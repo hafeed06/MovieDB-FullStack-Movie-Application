@@ -5,19 +5,18 @@ import java.sql.Date;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
-@Entity(name = "Movie")
+
+
+@Entity
 @Table(
-        name   = "movies",
-        schema = "public",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "movies_movie_ref_unique", columnNames = "movie_ref")
-        }
+        name="movies",
+        schema="public"
 )
 public class Movie {
 
     @Id
     @SequenceGenerator(
-            name = "movie_sequence",
+            name="movie_sequence",
             sequenceName = "movie_sequence",
             allocationSize = 1
     )
@@ -25,32 +24,14 @@ public class Movie {
             strategy = SEQUENCE,
             generator = "movie_sequence"
     )
-    @Column(
-            name = "movie_id"
-    )
+    @Column(name = "movie_id")
     private Long movieId;
-    @Column(
-            name = "title",
-            nullable = false
-    )
+    @Column(name = "title")
     private String title;
-    @Column(
-            name = "added_date",
-            nullable = false
-    )
+    @Column(name = "added_date")
     private Date addedDate;
-    @Column(
-            name = "movie_ref",
-            nullable = false
-    )
+    @Column(name = "movie_ref")
     private String movieRef;
-
-    public Movie() {}
-    public Movie(String title, Date addedDate, String movieRef) {
-        this.title = title;
-        this.addedDate = addedDate;
-        this.movieRef = movieRef;
-    }
 
     public Long getMovieId() {
         return movieId;
@@ -83,4 +64,12 @@ public class Movie {
     public void setMovieRef(String movieRef) {
         this.movieRef = movieRef;
     }
+
+    public Movie(String title, Date addedDate, String movieRef) {
+        this.title = title;
+        this.addedDate = addedDate;
+        this.movieRef = movieRef;
+    }
+
+    public Movie() {}
 }

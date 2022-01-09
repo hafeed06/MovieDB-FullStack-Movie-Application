@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     //TODO Change Origin before Production
 
     @Autowired
     UserService userService;
-
-    @CrossOrigin(origins = "http://localhost:3000")
 
     // ----- FETCH ALL THE USERS  ----- //
     @GetMapping(path = "/users")
@@ -29,6 +29,7 @@ public class UserController {
         return ResponseEntity.status(200).body(user);
     }
     // ----- ADD 1 USER  ----- //
+
     @PostMapping(path = "/users/addUser")
     public User addUser(@RequestBody User user) {
         return userService.addUser(user);

@@ -4,6 +4,7 @@ package co.hafid.moviedb.entities;
 import javax.persistence.*;
 import java.sql.Date;
 
+import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "Contact")
@@ -11,20 +12,15 @@ import static javax.persistence.GenerationType.SEQUENCE;
         name   = "contacts",
         schema = "public",
         uniqueConstraints = {
-                @UniqueConstraint(name = "contact_email_unique", columnNames = "email")
+                @UniqueConstraint(name = "contact_email_unique", columnNames = "email"),
+                @UniqueConstraint(name = "contact_userid_unique", columnNames = "userid")
         }
 )
 public class Contact {
 
     @Id
-    @SequenceGenerator(
-            name = "contact_sequence",
-            sequenceName = "contact_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "contact_sequence"
+            strategy = IDENTITY
     )
     @Column(
             name = "contact_id"
@@ -54,12 +50,17 @@ public class Contact {
     )
     private String email;
 
+    @Column(name = "userid")
+    private Long userid;
+
     public Contact() {}
-    public Contact(String name, Date birthdate, String gender, String email) {
+
+    public Contact(String name, Date birthdate, String gender, String email, Long userid) {
         this.name = name;
         this.birthdate = birthdate;
         this.gender = gender;
         this.email = email;
+        this.userid = userid;
     }
 
     public Long getContactId() {
@@ -102,6 +103,15 @@ public class Contact {
         this.email = email;
     }
 
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
+
+
     @Override
     public String toString() {
         return "Contact{" +
@@ -110,6 +120,7 @@ public class Contact {
                 ", birthdate=" + birthdate +
                 ", gender='" + gender + '\'' +
                 ", email='" + email + '\'' +
+                ", userid=" + userid +
                 '}';
     }
 }

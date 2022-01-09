@@ -10,6 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Button, Typography, Paper } from '@mui/material';
+import JDBCDateParsing from '../../../utils/JDBCDateParsing';
 import axios from 'axios'
 const api = axios.create({
   baseURL: "http://localhost:8080"
@@ -21,23 +22,24 @@ const smallInput = {width:'46%', marginBottom:1, marginTop:1, marginRight:1, mar
 
 const Signup = () => {
     // State Management
-    const initialState = {
-        firstname:'',
-        lastname:'',
-        username:'',
-        password:'',
-        birthday:new Date(),
-        gender:'',
-        email:'',
-        country:'',
-        area:'',
-        city:'',
-        number:'',
-        street:'',
-    }
     const initialDate = new Date()
+    const initialState = {
+      firstname:'',
+      lastname:'',
+      username:'',
+      password:'',
+      birthdate:initialDate,
+      gender:'',
+      email:'',
+      country:'',
+      area:'',
+      city:'',
+      number:'',
+      street:'',
+      }
     const [submitted, setSubmitted] = useState(false)
     const [data, setData] = useState(initialState)
+    // Date State
     const [value, setValue] = useState(new Date(initialDate));
 
     const handleChange = (e) => {
@@ -46,26 +48,54 @@ const Signup = () => {
     // TimePicker Handling 
     const handleDateChange = (newValue) => {
       setValue(newValue);
-      setData({...data, birthday:newValue})
+      setData({...data, birthdate:newValue})
     };
-    const handleSubmit = (e) => {
-      e.preventDefault()
-      // Posting to PGSQL User Table
-      const userData = {
-        "id":0,
-        "username":data.username, 
-        "password":data.password
-      }
-      api.post('/addUsers', data, {headers: {"Access-Control-Allow-Origin": "*"}}).then(function (response) {console.log(response);})
-      .catch(function (error) {console.log(error); });
-      api.post('/addusers', data, {headers: {"Access-Control-Allow-Origin": "*"}}).then(function (response) {console.log(response);})
-      .catch(function (error) {console.log(error); });
-    
+    //////////////////////////////////
+    /////////// API Calls ////////////
+    //////////////////////////////////
+    const addUser = async (data) => {
+
+          let newUserId = null; 
+          const userData = await {
+            "username":data.username, 
+            "password":data.password
+          }
+
+          const contactData = {
+            "name" : `${data.firstname} ${data.lastname}`,
+            "birthdate": JDBCDateParsing(data.birthdate),
+            "gender": data.gender, 
+            "email": data.email, 
+          }
+          console.log(contactData)
+          const addContact = async (contactData) => {
+            
+            await api.post('/contacts/addContact', contactData).then(res => console.log(res.data))
+          }
+          try {
+              await api.post('/users/addUser', userData).then(res => newUserId = res.data.userid)
+              try {
+                contactData["userid"] = newUserId
+                  addContact(contactData)
+              } catch (e) {
+                  console.log(e)
+              }
+          } catch (e) {
+              console.error(e.message)
+          }
+          console.log(newUserId)
     }
-      // Logging  - Dev Only 
-      useEffect(() => {
-        console.log(data)
-      },[data])
+    //////////////////////////////////
+    const handleSubmit = async (e) => {
+      e.preventDefault()
+      addUser(data)
+    }
+
+    // Logging  - Dev Only 
+    useEffect(() => {
+      console.log(data)
+                    },[data])
+
     // Rendering: 
     return (
         <div>
@@ -81,8 +111,8 @@ const Signup = () => {
             <TextField name="password" label="Password" type="password" variant="outlined" sx={bigInput} onChange={handleChange}/>
             <LocalizationProvider dateAdapter={AdapterDateFns} >
                 <DesktopDatePicker style={bigInput}
-                    name="birthday"
-                    label="Birthday"
+                    name="birthdate"
+                    label="Birth Date"
                     inputFormat="dd/MM/yyyy"
                     value={value}
                     onChange={handleDateChange} 

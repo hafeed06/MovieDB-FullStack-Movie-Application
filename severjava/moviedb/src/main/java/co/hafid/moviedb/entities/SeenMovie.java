@@ -3,6 +3,7 @@ import javax.persistence.*;
 
 import java.util.Date;
 
+import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "SeenMovie")
@@ -12,14 +13,8 @@ import static javax.persistence.GenerationType.SEQUENCE;
       )
 public class SeenMovie {
     @Id
-    @SequenceGenerator(
-            name = "seenMovie_sequence",
-            sequenceName = "seenMovie_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "seenMovie_sequence"
+            strategy = IDENTITY
     )
     private Long id;
     @Column(

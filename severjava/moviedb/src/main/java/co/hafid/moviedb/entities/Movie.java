@@ -2,8 +2,11 @@ package co.hafid.moviedb.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
 
-import static javax.persistence.GenerationType.SEQUENCE;
+import static javax.persistence.GenerationType.IDENTITY;
 
 
 
@@ -15,14 +18,8 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public class Movie {
 
     @Id
-    @SequenceGenerator(
-            name="movie_sequence",
-            sequenceName = "movie_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "movie_sequence"
+            strategy = IDENTITY
     )
     @Column(name = "movie_id")
     private Long movieId;
@@ -32,6 +29,10 @@ public class Movie {
     private Date addedDate;
     @Column(name = "movie_ref")
     private String movieRef;
+
+    @OneToMany
+    @JoinColumn(referencedColumnName = "movie_ref")
+    Collection<SeenMovie> seenMovies = new ArrayList<>();
 
     public Long getMovieId() {
         return movieId;

@@ -2,6 +2,7 @@ package co.hafid.moviedb.entities;
 
 import javax.persistence.*;
 
+import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "Role")
@@ -15,14 +16,8 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public class Role {
 
     @Id
-    @SequenceGenerator(
-            name = "role_sequence",
-            sequenceName = "role_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "role_sequence"
+            strategy = IDENTITY
     )
     @Column(
             name = "role_id"

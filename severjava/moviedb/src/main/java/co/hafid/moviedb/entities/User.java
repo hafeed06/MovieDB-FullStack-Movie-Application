@@ -1,5 +1,7 @@
 package co.hafid.moviedb.entities;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -51,6 +53,7 @@ public class User {
     }
 
     public void setPassword(String password) {
+
         this.password = password;
     }
 

@@ -26,7 +26,7 @@ public class ContactService {
         return contactRepository.findContactByEmail(contact.getEmail()).isPresent();
     }
 
-    // Add 1 Movie
+    // Add 1 Contact
     public Contact addContact(Contact contact) {
         return contactRepository.save(contact);
     }

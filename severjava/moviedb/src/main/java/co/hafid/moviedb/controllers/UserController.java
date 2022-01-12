@@ -20,6 +20,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
+
     // ----- FETCH ALL THE USERS  ----- //
     @GetMapping(path = "/users")
     public ResponseEntity<List> getAllUsers() {
@@ -67,5 +69,7 @@ public class UserController {
         if(userService.Authenticate(user) == true) return ResponseEntity.status(200).body(true);
         else return ResponseEntity.status(401).body(false);
     }
+
+
 
 }

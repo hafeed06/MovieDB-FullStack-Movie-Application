@@ -25,7 +25,7 @@ public class ContactController {
         return contactService.isEmailRegistered(contact);
     }
 
-    // Add 1 Movie
+    // Add 1 Contact
     @PostMapping(path = "/contacts/addContact")
     public Contact addContact(@RequestBody Contact contact) {
         return contactService.addContact(contact);

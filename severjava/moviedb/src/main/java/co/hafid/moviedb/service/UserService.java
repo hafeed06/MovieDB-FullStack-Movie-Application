@@ -56,7 +56,10 @@ public class UserService {
     public Role addRole(Role role) {
         return roleRepository.save(role);
     }
-    // User Authentication
+
+    // --------------------------------------//
+    // ------- User Authentication ---------- //
+    // --------------------------------------//
     public boolean Authenticate(User user) {
         User dbUser = userRepository.getUserCredentials(user.getUsername());
         if (dbUser != null) {

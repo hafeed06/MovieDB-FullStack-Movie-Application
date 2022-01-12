@@ -11,10 +11,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Button, Typography, Paper } from '@mui/material';
 import JDBCDateParsing from '../../../utils/JDBCDateParsing';
-import axios from 'axios'
-const api = axios.create({
-  baseURL: "http://localhost:8080"
-})
+import { Link } from "react-router-dom"
+// Importing Java API & its Actions. 
+import {addUser} from '../../../apis/JavaAPI'
 
 // Input Styles
 const bigInput = {width:'95%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
@@ -50,44 +49,9 @@ const Signup = () => {
       setValue(newValue);
       setData({...data, birthdate:newValue})
     };
-    //////////////////////////////////
-    /////////// API Calls ////////////
-    //////////////////////////////////
-    const addUser = async (data) => {
-
-          let newUserId = null; 
-          const userData = await {
-            "username":data.username, 
-            "password":data.password
-          }
-
-          const contactData = {
-            "name" : `${data.firstname} ${data.lastname}`,
-            "birthdate": JDBCDateParsing(data.birthdate),
-            "gender": data.gender, 
-            "email": data.email, 
-          }
-          console.log(contactData)
-          const addContact = async (contactData) => {
-            
-            await api.post('/contacts/addContact', contactData).then(res => console.log(res.data))
-          }
-          try {
-              await api.post('/users/addUser', userData).then(res => newUserId = res.data.userid)
-              try {
-                contactData["userid"] = newUserId
-                  addContact(contactData)
-              } catch (e) {
-                  console.log(e)
-              }
-          } catch (e) {
-              console.error(e.message)
-          }
-          console.log(newUserId)
-    }
-    //////////////////////////////////
     const handleSubmit = async (e) => {
       e.preventDefault()
+      // Call to javaAPI
       addUser(data)
     }
 
@@ -141,7 +105,11 @@ const Signup = () => {
             <TextField name="street" label="Street" variant="outlined" sx={bigInput} onChange={handleChange}/>
             <Button variant="contained" type="submit" color="primary" sx={{width:'50%'}}>Signup</Button>
           </form>
-            <Typography p={1} variant="subtitle2">Already have an account? Sign in!</Typography>
+            <Typography p={1} variant="subtitle2">Already have an account?&nbsp;
+              <Link to="/login" >
+               Sign in! 
+              </Link>
+            </Typography>
           </Paper>
         </Grid>
       </Grid>

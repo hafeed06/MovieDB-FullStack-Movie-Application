@@ -1,27 +1,44 @@
 package co.hafid.moviedb.entities;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import javax.persistence.*;
 
-@Entity
-@Table(name = "users", schema = "public")
+import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.SEQUENCE;
+
+@Entity(name = "User")
+@Table(
+        name   = "users",
+        schema = "public",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "user_username_unique", columnNames = "username"),
+        }
+)
 public class User {
     @Id
-    @Column(name = "userid")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userID;
-    @Column(name = "username")
+    @GeneratedValue(
+            strategy = IDENTITY
+    )
+    private Long userid;
+    @Column(
+            name = "username",
+            nullable = false
+    )
     private String username;
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Column(name="password")
+    @Column(
+            name = "password",
+            nullable = false
+    )
     private String password;
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
 
     public String getUsername() {
         return username;
@@ -31,13 +48,28 @@ public class User {
         this.username = username;
     }
 
-
-    public Long getUserID() {
-        return userID;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+    public void setPassword(String password) {
+
+        this.password = password;
     }
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User() {}
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userid=" + userid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

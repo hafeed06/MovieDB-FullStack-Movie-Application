@@ -6,9 +6,9 @@ const router   =    express.Router()
 require('dotenv').config();
 
 
-router.get('/add', (req,res) => {
-    res.status(200).send("Successfull Operation")
-})
+// router.get('/add', (req,res) => {
+//     res.status(200).send("Successfull Operation")
+// })
 
 router.post('/add', async (req,res) => {
     try {
@@ -19,8 +19,8 @@ router.post('/add', async (req,res) => {
             "movieDirector" : req.body.movieDirector, 
         }
         try {
-            await mydb.addMovie(data)
-            res.status(200).send("Movie was added Successfully! ")
+            const movieDetails = await mydb.addMovie(data)
+            res.status(200).json(movieDetails)
         } catch (error) {
             res.status(200).send("Movie couldn't be added : " + error)
         }

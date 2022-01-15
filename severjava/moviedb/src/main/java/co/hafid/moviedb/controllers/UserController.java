@@ -21,7 +21,6 @@ public class UserController {
     UserService userService;
 
 
-
     // ----- FETCH ALL THE USERS  ----- //
     @GetMapping(path = "/users")
     public ResponseEntity<List> getAllUsers() {

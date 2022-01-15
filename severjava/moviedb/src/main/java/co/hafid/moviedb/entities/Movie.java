@@ -30,9 +30,9 @@ public class Movie {
     @Column(name = "movie_ref")
     private String movieRef;
 
-    @OneToMany
-    @JoinColumn(referencedColumnName = "movie_ref")
-    Collection<SeenMovie> seenMovies = new ArrayList<>();
+//    @OneToMany
+//    @JoinColumn(referencedColumnName = "movie_ref")
+//    Collection<SeenMovie> seenMovies = new ArrayList<>();
 
     public Long getMovieId() {
         return movieId;
@@ -70,6 +70,16 @@ public class Movie {
         this.title = title;
         this.addedDate = addedDate;
         this.movieRef = movieRef;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "movieId=" + movieId +
+                ", title='" + title + '\'' +
+                ", addedDate=" + addedDate +
+                ", movieRef='" + movieRef + '\'' +
+                '}';
     }
 
     public Movie() {}

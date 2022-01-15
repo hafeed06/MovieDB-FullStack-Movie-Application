@@ -1,17 +1,14 @@
 import axios from 'axios'
 import JDBCDateParsing from '../utils/JDBCDateParsing'
-import { useState } from 'react'
 
 
-const javaAPI = axios.create({
-    baseURL: "http://localhost:8080"
+const JavaAPI = axios.create({
+    baseURL: process.env.REACT_APP_APIJAVA_URL
   })
 
-// Actions:  
+// Actions:  process.env.REACT_APP_APIJAVA_URL
 
 export const addUser = async (data) => {
-
-
     // Data Management 
     let newUserId = null; 
     const userData = await {
@@ -39,13 +36,15 @@ export const addUser = async (data) => {
     console.log(contactData)
 
     // Actions 
-    const addContact = (contactData) => javaAPI.post('/contacts/addContact', contactData).then(res => { return res.data.contactId })
-    const addRole = async (roleData) => await javaAPI.post('/users/addRole', roleData) // .then(res => console.log(res.data))
-    const addAddress = (addressData) => javaAPI.post('/users/addAddress', addressData) // .then(res => console.log(res.data))
+    const addContact = (contactData) => JavaAPI.post('/contacts/addContact', contactData).then(res => { return res.data.contactId })
+    const addRole = async (roleData) => await JavaAPI.post('/users/addRole', roleData) // .then(res => console.log(res.data))
+    const addAddress = (addressData) => JavaAPI.post('/users/addAddress', addressData) // .then(res => console.log(res.data))
+
+    
     // Implementation
     // Add User
     try {
-        await javaAPI.post('/users/addUser', userData).then(res => newUserId = res.data.userid)
+        await JavaAPI.post('/users/addUser', userData).then(res => newUserId = res.data.userid)
         console.log("The User Has Been Added")
         // Add Contact
         try {
@@ -80,7 +79,7 @@ export const authUser = async (data, setSubmitted) => {
 
 
   try {
-    await javaAPI.post('/users/authUser', data).then(res => console.log(res))
+    await JavaAPI.post('/users/authUser', data).then(res => console.log(res))
     console.log("Success")
     setSubmitted(true) 
   } catch (error) {
@@ -90,6 +89,32 @@ export const authUser = async (data, setSubmitted) => {
   }
 }
 
-export default javaAPI
+// Add Movie 
+
+export const javaAddMovie = (movieId, data) => {
+  const movieData = {
+    title:data.title, 
+    addedDate:data.addedDate,
+    movieRef:movieId
+  }
+
+  console.log(" MOVIE REFERENCE IS : " + movieData.movieRef)
+
+  try {
+    JavaAPI.post('/movies/addMovie', movieData).then(res => console.log(res))
+  } catch (error) {
+      console.log(error)
+  }
+}
+
+// Get Movies 
+
+export const getJavaMovies = async() => {
+    let movieData = null
+    await JavaAPI.get('/movies').then( response => movieData = response.data)
+    return movieData
+}
+
+export default JavaAPI
   
 

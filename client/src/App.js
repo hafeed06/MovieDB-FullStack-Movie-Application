@@ -2,10 +2,12 @@ import mainTheme from './Theme';
 import {ThemeProvider} from '@mui/material/styles';
 import Navbar from './Components/Navbar/Navbar';
 import MainRouter from './routes/MainRouter';
+import { useEffect } from 'react';
 
 
 
 const App = () => {
+
   return (
     <ThemeProvider theme={mainTheme}>
       <div className='App'>

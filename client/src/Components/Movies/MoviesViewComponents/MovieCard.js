@@ -10,7 +10,7 @@ import SimpleAccordion from './SimpleAccordion';
 
 
 
-const MovieCard = ({title, category,releaseDate, movieDirector}) => {
+const MovieCard = ({title, category,releaseDate, movieDirector, addedDate}) => {
     return (
       <Grid item xs={12} sm={8} md={4}>
         <Card sx={{ maxWidth: '100%', background:'#1D2022' }}>
@@ -23,14 +23,14 @@ const MovieCard = ({title, category,releaseDate, movieDirector}) => {
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div" color="primary">
-                {title}
+                {title.toUpperCase()}
               </Typography>
               <Typography variant="body2" color="white">
-                {category}
+                {category.toUpperCase()}
               </Typography>
              
             </CardContent>
-            <SimpleAccordion releaseDate={releaseDate} movieDirector={movieDirector}/>
+            <SimpleAccordion releaseDate={releaseDate} movieDirector={movieDirector} addedDate={addedDate}/>
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary" startIcon={<PlayCircleFilledWhiteIcon />}>

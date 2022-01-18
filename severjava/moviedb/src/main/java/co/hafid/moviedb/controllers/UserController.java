@@ -1,10 +1,15 @@
-/** This Controller controls both User and Role Entities **/
+/**
+ * This Controller controls both User and Role Entities
+ **/
 
 package co.hafid.moviedb.controllers;
 
 import co.hafid.moviedb.entities.Role;
 import co.hafid.moviedb.entities.User;
 import co.hafid.moviedb.service.UserService;
+import org.slf4j.ILoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +20,20 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
-    //TODO Change Origin before Production
 
+    //TODO Change Origin before Production
     @Autowired
     UserService userService;
 
+    Logger logger = LoggerFactory.getLogger(UserController.class);
 
     // ----- FETCH ALL THE USERS  ----- //
     @GetMapping(path = "/users")
     public ResponseEntity<List> getAllUsers() {
+        logger.warn("Tryin to fetch users");
         return ResponseEntity.status(200).body(userService.getUsers());
     }
+
     // ----- FETCH 1 USER  ----- //
     @GetMapping(path = "/users/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
@@ -52,6 +60,7 @@ public class UserController {
         userService.deleteUser(user.getUserid());
         // TODO : Response Management
     }
+
     // ----- CHECK IF USERNAME IS ALREADY REGISTERED  ----- //
     @PostMapping("/users/isUsernameRegistered")
     // TODO On the front end make sure to register usernames in lowercase
@@ -65,10 +74,7 @@ public class UserController {
     public ResponseEntity<Boolean> authUser(@RequestBody User user) {
         System.out.println(user.getUsername());
         System.out.println(user.getPassword());
-        if(userService.Authenticate(user) == true) return ResponseEntity.status(200).body(true);
+        if (userService.Authenticate(user) == true) return ResponseEntity.status(200).body(true);
         else return ResponseEntity.status(401).body(false);
     }
-
-
-
 }

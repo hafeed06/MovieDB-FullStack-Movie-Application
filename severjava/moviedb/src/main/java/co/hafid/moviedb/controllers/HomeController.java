@@ -47,7 +47,7 @@ public class HomeController {
             );
         }
         catch (BadCredentialsException e){
-            throw new BadCredentialsException("INVALID CREDENTIALS",e);
+            throw new Exception("INVALID CREDENTIALS",e);
         }
 
         final UserDetails userDetails
@@ -60,7 +60,7 @@ public class HomeController {
 
     }
 
-        //        try {
+    //        try {
 //            authenticationManager.authenticate(
 //                    new UsernamePasswordAuthenticationToken(
 //                            jwtRequest.getUsername(),

@@ -7,6 +7,7 @@ yarn-error.log*
 lerna-debug.log*
 
 severjava/moviedb/src/main/resources/application.properties
+*.yml
 severjava/moviedb/src/main/resources/info.ini
 
 # Diagnostic reports (https://nodejs.org/api/report.html)

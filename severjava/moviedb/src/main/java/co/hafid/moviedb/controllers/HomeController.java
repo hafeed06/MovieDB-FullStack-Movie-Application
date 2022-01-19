@@ -33,11 +33,17 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "Welcome to the homepage of your API";
+        return "Welcome to Daily Code Buffer!!";
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "This is the test place";
     }
 
     @PostMapping("/authenticate")
-    public JWTResponse authenticate(@RequestBody JWTRequest jwtRequest) throws Exception {
+    public JWTResponse authenticate(@RequestBody JWTRequest jwtRequest) throws Exception{
+
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -45,9 +51,11 @@ public class HomeController {
                             jwtRequest.getPassword()
                     )
             );
-        }
-        catch (BadCredentialsException e){
-            throw new Exception("INVALID CREDENTIALS",e);
+            System.out.println("SUCCESSFUL AUTHENTICATION");
+        } catch (BadCredentialsException e) {
+            System.out.println("AUTHENTICATION FAILED");
+            throw new Exception("INVALID_CREDENTIALS", e);
+
         }
 
         final UserDetails userDetails
@@ -57,25 +65,5 @@ public class HomeController {
                 jwtUtility.generateToken(userDetails);
 
         return  new JWTResponse(token);
-
     }
-
-    //        try {
-//            authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(
-//                            jwtRequest.getUsername(),
-//                            jwtRequest.getPassword()
-//                    )
-//            );
-//        }
-//        catch(BadCredentialsException e) {
-//            throw new Exception("Username or Password Invalid ... ",e);
-//        }
-//
-//        final UserDetails userDetails
-//                = userService2.loadUserByUsername(jwtRequest.getUsername());
-//        final String token
-//                = jwtUtility.generateToken(userDetails);
-//        return new JWTResponse(token);
-//    }
 }

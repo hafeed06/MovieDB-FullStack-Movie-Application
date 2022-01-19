@@ -20,10 +20,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Autowired
-    UserService2 userService2;
+    private UserService2 userService2;
 
     @Autowired
     private JwtFilter jwtFilter;
@@ -34,18 +34,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService2);
     }
 
-    @Bean
     @Override
+    @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // If you want to allow all access for dev purposes
-//        http.csrf()
-//                .disable()
-        //
         http.csrf()
                 .disable()
                 .authorizeRequests()
@@ -54,13 +50,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-<<<<<<< HEAD
                 .sessionManagement()
-=======
-                        .sessionManagement()
->>>>>>> 2833c530e432dd284bce7678d73606a8c559b719
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-    }
 
+    }
 }

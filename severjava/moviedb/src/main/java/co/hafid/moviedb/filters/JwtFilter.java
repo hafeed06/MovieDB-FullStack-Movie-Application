@@ -4,6 +4,7 @@ import co.hafid.moviedb.service.UserService2;
 import co.hafid.moviedb.utilities.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -16,16 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @author Abdelhafid Elbekkaoui hafid.co
- * @version 1.0
- */
-
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
     @Autowired
     private JWTUtility jwtUtility;
+
     @Autowired
     private UserService2 userService2;
 

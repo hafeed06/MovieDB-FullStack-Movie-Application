@@ -1,10 +1,9 @@
 package co.hafid.moviedb.filters;
 
-import co.hafid.moviedb.service.UserService2;
+import co.hafid.moviedb.service.UserService;
 import co.hafid.moviedb.utilities.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -24,7 +23,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private JWTUtility jwtUtility;
 
     @Autowired
-    private UserService2 userService2;
+    private UserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
@@ -39,7 +38,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if(null != userName && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails
-                    = userService2.loadUserByUsername(userName);
+                    = userService.loadUserByUsername(userName);
 
             if(jwtUtility.validateToken(token,userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken

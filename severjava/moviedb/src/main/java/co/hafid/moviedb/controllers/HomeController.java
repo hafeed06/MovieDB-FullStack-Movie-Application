@@ -1,18 +1,18 @@
 package co.hafid.moviedb.controllers;
 
+import co.hafid.moviedb.entities.User;
 import co.hafid.moviedb.models.JWTRequest;
 import co.hafid.moviedb.models.JWTResponse;
-import co.hafid.moviedb.service.UserService2;
+import co.hafid.moviedb.service.UserService;
 import co.hafid.moviedb.utilities.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author Abdelhafid Elbekkaoui hafid.co
@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+//TODO Change Origin to real backend URL in all of the controllers.
+@CrossOrigin(origins = "http://localhost:3000")
 public class HomeController {
 
     @Autowired
@@ -29,11 +31,11 @@ public class HomeController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserService2 userService2;
+    private UserService userService;
 
     @GetMapping("/")
     public String home() {
-        return "Welcome to Daily Code Buffer!!";
+        return "Test ....";
     }
 
     @GetMapping("/test")
@@ -59,7 +61,7 @@ public class HomeController {
         }
 
         final UserDetails userDetails
-                = userService2.loadUserByUsername(jwtRequest.getUsername());
+                = userService.loadUserByUsername(jwtRequest.getUsername());
 
         final String token =
                 jwtUtility.generateToken(userDetails);

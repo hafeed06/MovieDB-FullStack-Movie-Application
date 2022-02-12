@@ -4,6 +4,9 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -31,6 +34,9 @@ public class User {
             nullable = false
     )
     private String password;
+
+//    @ManyToMany
+//    private Collection<Role> roles = new ArrayList<>();
 
     public Long getUserid() {
         return userid;

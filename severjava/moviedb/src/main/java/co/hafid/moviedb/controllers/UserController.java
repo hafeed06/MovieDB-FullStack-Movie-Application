@@ -7,6 +7,7 @@ package co.hafid.moviedb.controllers;
 import co.hafid.moviedb.entities.Role;
 import co.hafid.moviedb.entities.User;
 import co.hafid.moviedb.service.UserService;
+import co.hafid.moviedb.utilities.JWTUtility;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -24,6 +26,9 @@ public class UserController {
     //TODO Change Origin before Production
     @Autowired
     UserService userService;
+
+    @Autowired
+    private JWTUtility jwtUtility;
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -77,4 +82,17 @@ public class UserController {
         if (userService.Authenticate(user) == true) return ResponseEntity.status(200).body(true);
         else return ResponseEntity.status(401).body(false);
     }
+
+    // ------ GET THE CURRENT USER ----------- //
+    @GetMapping("/users/current")
+    public User getUserbyUserName(@RequestHeader Map<String, String> headers) {
+        String jwtToken = headers.get("authorization").split(" ")[1];
+        String usernameFromJWT = jwtUtility.getUsernameFromToken(jwtToken);
+        User user = userService.getByUsername(usernameFromJWT);
+        User userWithoutPassword = new User();
+        userWithoutPassword.setUserid(user.getUserid());
+        userWithoutPassword.setUsername(user.getUsername());
+        return userWithoutPassword;
+    }
+
 }

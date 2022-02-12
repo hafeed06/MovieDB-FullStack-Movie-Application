@@ -1,7 +1,7 @@
 package co.hafid.moviedb.configuration;
 
 import co.hafid.moviedb.filters.JwtFilter;
-import co.hafid.moviedb.service.UserService2;
+import co.hafid.moviedb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Autowired
-    private UserService2 userService2;
+    private UserService userService;
 
     @Autowired
     private JwtFilter jwtFilter;
@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(userService2);
+        auth.userDetailsService(userService);
     }
 
     @Override
@@ -45,7 +45,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/authenticate")
+                .antMatchers(
+                        "/authenticate",
+                        "/movies"
+                )
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -53,6 +56,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
     }
 }

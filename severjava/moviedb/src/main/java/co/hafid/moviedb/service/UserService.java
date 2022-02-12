@@ -9,14 +9,18 @@ import co.hafid.moviedb.repositories.UserRepository;
 import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
@@ -67,6 +71,18 @@ public class UserService {
             return BCrypt.checkpw(user.getPassword(), dbUser.getPassword());
         }
         else return false;
+    }
+
+    public User getByUsername(String username) {
+        User user = userRepository.findUserByUsername(username).orElse(null);
+        return user;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        co.hafid.moviedb.entities.User dbUser = userRepository.findByUsername(username);
+        // TODO -- Fetch Roles as Well
+        return new org.springframework.security.core.userdetails.User(dbUser.getUsername(), dbUser.getPassword(), new ArrayList<>());
     }
 }
 

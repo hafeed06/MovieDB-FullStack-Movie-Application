@@ -31,4 +31,10 @@ public class ContactService {
         return contactRepository.save(contact);
     }
 
+    // Get Contact by User ID
+
+    public Contact getContactByUserId(Long userid) {
+        return contactRepository.findContactByUserid(userid);
+    }
+
 }

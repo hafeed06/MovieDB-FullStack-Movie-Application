@@ -46,8 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .disable()
                 .authorizeRequests()
                 .antMatchers(
-                        "/authenticate",
-                        "/movies"
+                        "/authenticate"
                 )
                 .permitAll()
                 .anyRequest()
@@ -55,6 +54,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        // Disabling CORS
+        http.cors();
+        /////////////////
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

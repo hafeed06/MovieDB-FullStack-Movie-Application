@@ -95,4 +95,6 @@ public class UserController {
         return userWithoutPassword;
     }
 
+    // ------ VERIFY IF USER IS AUTHENTICATED --------- //
+
 }

@@ -23,4 +23,9 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
+    public Address getAddressByContactId(Long contactId) {
+        return addressRepository.getAddressByContactId(contactId);
+    }
+
+
 }

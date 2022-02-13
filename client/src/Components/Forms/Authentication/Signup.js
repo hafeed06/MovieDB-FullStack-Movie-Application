@@ -19,7 +19,7 @@ import {addUser} from '../../../apis/JavaAPI'
 const bigInput = {width:'95%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 const smallInput = {width:'46%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 
-const Signup = () => {
+const SignupForm = () => {
     // State Management
     const initialDate = new Date()
     const initialState = {
@@ -118,4 +118,4 @@ const Signup = () => {
     )
 }
 
-export default Signup
+export default SignupForm

@@ -2,6 +2,7 @@ import axios from 'axios'
 import JDBCDateParsing from '../utils/JDBCDateParsing'
 import Cookies from 'universal-cookie'; 
 import headers from '../utils/auth/headers';
+import redirectToHome from '../utils/redirections/redirectToHome';
 
 const cookies = new Cookies();
 const JavaAPI = axios.create({
@@ -40,7 +41,7 @@ export const addUser = async (data) => {
   // Actions 
   const addContact = (contactData) => JavaAPI.post('/contacts/addContact', contactData).then(res => { return res.data.contactId })
   const addRole = async (roleData) => await JavaAPI.post('/users/addRole', roleData) // .then(res => console.log(res.data))
-  const addAddress = (addressData) => JavaAPI.post('/users/addAddress', addressData) // .then(res => console.log(res.data))
+  const addAddress = (addressData) => JavaAPI.post('/addresses/addAddress', addressData) // .then(res => console.log(res.data))
 
 
   // Implementation
@@ -77,7 +78,7 @@ export const addUser = async (data) => {
 // LOGIN -- 
 // User Authentication Handling
 
-export const authUser = async (data, setSubmitted) => {
+export const authUser = async (data, setSubmitted, setError) => {
 
 
   try {
@@ -86,11 +87,14 @@ export const authUser = async (data, setSubmitted) => {
       cookies.set("token", res.data.jwtToken, {'path': '/'})
     })
     console.log("Successful Authentication")
+    setError(false)
     setSubmitted(true)
+    redirectToHome()
   } catch (error) {
     console.error(error)
     console.log("Failure")
-    setSubmitted(false)
+    setSubmitted(true)
+    setError(true)
   }
 }
 
@@ -98,16 +102,47 @@ export const authUser = async (data, setSubmitted) => {
 export const CheckAuth = async () => {
   let isAuth = null; 
   try {
+      console.log(headers)
       let res = await JavaAPI.get('/users/current', {headers: headers})
       isAuth = true
       console.log("Auth Succeeded")
   } catch (error) {
       isAuth = false; 
       console.log("Auth Failed")
-      console.log(error)
+      console.log(error.response)
   }
   return isAuth
 };
+
+
+// Get User Full Information 
+
+export const getFullInformation = async () => {
+  let userInformation = {}
+    try {
+      let basicInfo = await JavaAPI.get('/users/current', {headers: headers})
+      userInformation = {...basicInfo.data} 
+      delete userInformation["password"]
+      let id = userInformation.userid 
+      try {
+          let contactInfo = await JavaAPI.get(`/contacts/${id}`, {headers: headers})
+          userInformation = {...userInformation, ...contactInfo.data}
+          let contactId = userInformation.contactId
+            try {
+              let addressInfo = await JavaAPI.get(`/addresses/${contactId}`, {headers: headers})
+              userInformation = {...userInformation, ...addressInfo.data}
+              console.log(userInformation)
+            } catch (error) {
+              console.log(error)
+            }
+      } catch (error) {
+          console.log(error)
+      }
+      console.log("User id is => " + id)
+    } catch (error) {
+        console.log(error.response)
+    }
+}
 
 // Add Movie 
 
@@ -131,7 +166,7 @@ export const javaAddMovie = (movieId, data) => {
 
 export const getJavaMovies = async () => {
   let movieData = null
-  await JavaAPI.get('/movies').then(response => movieData = response.data)
+  await JavaAPI.get('/movies', {headers: headers}).then(response => movieData = response.data)
   return movieData
 }
 

@@ -2,8 +2,10 @@ package co.hafid.moviedb.controllers;
 
 import co.hafid.moviedb.entities.Contact;
 import co.hafid.moviedb.entities.Movie;
+import co.hafid.moviedb.entities.User;
 import co.hafid.moviedb.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +20,14 @@ public class ContactController {
     @GetMapping("/contacts")
     public List<Contact> getContacts() {
         return contactService.getAllContacts();
+    }
+
+    // Get Contact by userID
+
+    @GetMapping(path = "/contacts/{id}")
+    public ResponseEntity<Contact> getContact(@PathVariable("id") Long id) {
+        Contact contact = contactService.getContactByUserId(id);
+        return ResponseEntity.status(200).body(contact);
     }
 
     @PostMapping("/contacts/isEmailRegistered")

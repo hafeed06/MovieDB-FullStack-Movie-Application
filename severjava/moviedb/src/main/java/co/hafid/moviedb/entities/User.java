@@ -4,8 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.persistence.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.GenerationType.SEQUENCE;
@@ -35,8 +34,11 @@ public class User {
     )
     private String password;
 
-//    @ManyToMany
-//    private Collection<Role> roles = new ArrayList<>();
+//    @OneToMany(targetEntity = Role.class, cascade=CascadeType.ALL)
+//    // Referenced Column name is the name of the joined column
+//    @JoinColumn(name="userid")
+//    private List<Role> roles;
+
 
     public Long getUserid() {
         return userid;
@@ -57,6 +59,15 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+
+//    public List<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(List<Role> roles) {
+//        this.roles = roles;
+//    }
 
     public void setPassword(String password) {
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -9,14 +9,19 @@ import SimpleAccordion from './SimpleAccordion';
 import BasicRating from './Rating';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import '../../../index.css'
+import RateMovie from './RateMovie';
+
+const MovieCard = ({movieid, title, category,releaseDate, movieDirector, addedDate}) => {
 
 
+    const [addRating, setAddRating] = useState(false)
+    const handleAddRating = () => {
+      setAddRating(prevState => !prevState)
+    }
 
-
-const MovieCard = ({title, category,releaseDate, movieDirector, addedDate}) => {
     return (
-      <Grid item xs={12} sm={8} md={4}>
-        <Card sx={{ maxWidth: '100%', background:'#1D2022' }}>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card sx={{ maxWidth: '100%', background:'#1D2022', textAlign:'center', alignItems:'center' }}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -40,10 +45,11 @@ const MovieCard = ({title, category,releaseDate, movieDirector, addedDate}) => {
             <Button size="small" color="primary" startIcon={<PlayCircleFilledWhiteIcon />}>
               Watch 
             </Button>
-            <Button size="small" color="primary" startIcon={<ThumbsUpDownIcon />}>
+            <Button size="small" color="primary" startIcon={<ThumbsUpDownIcon />} onClick={handleAddRating}>
               Rate Movie
             </Button>
             </div>
+            { addRating && <RateMovie movieid={movieid}/> } 
         </Card>
       </Grid>
       )

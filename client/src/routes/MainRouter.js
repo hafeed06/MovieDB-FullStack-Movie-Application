@@ -9,6 +9,7 @@ import Home from '../pages/Home';
 import { useEffect, useState } from 'react';
 import { CheckAuth } from '../apis/JavaAPI';
 import TestFullInformation from '../Tests/TestFullInformation';
+import AddRating from '../pages/AddRating';
 
 const Mainrouter = () => {
 

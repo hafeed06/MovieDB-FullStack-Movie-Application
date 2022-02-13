@@ -14,22 +14,8 @@ const ListMovies = () => {
     const [movieList, setMovieList] = useState(null)
     
     useEffect(() => {
-        let nodeMovies = null
-        let javaMovies = null
-        let mergedMovies = null 
-        // getNodeMovies()
-        //     .then(res => {
-        //         nodeMovies = mergedMovies = res
-        //         getJavaMovies().then(res => {
-        //             javaMovies = res
-        //             mergedMovies.map((e,k) => e.addedDate = javaMovies[k].addedDate)
-        //             // mergedMovies.map(e => console.log(e))
-        //             setMovieList(mergedMovies)
-        //         }).catch(error => console.error(error))
-        //     })
-        //     .catch(error => console.error(error))
-        
-        const fetchMovies = async () => {
+
+            const fetchMovies = async () => {
             const result = await getMovies()
             console.log("This is fetch Movies")
             setMovieList(result)
@@ -46,12 +32,14 @@ const ListMovies = () => {
     
     return (
         <div>
-        <Box sx={{ flexGrow: 1 }} mt={10}>
-        <Grid container spacing={2} sx={{justifyContent:'center', textAlign:'center', alignItems:'center'}}>
+            {!movieList && <LoadingBar />}
+        <Box sx={{ flexGrow: 1 }} m={5} >
+        <Grid container spacing={2} alignItems="stretch">
         {
-            !movieList? <LoadingBar />:
+            movieList &&
             movieList.map(
                 (e,k) => <MovieCard key={`movie_${k}`}
+                movieid = {movieList[k]._id}
                 title={movieList[k].title}
                 category={movieList[k].category}
                 releaseDate={movieList[k].releaseDate}

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 require('dotenv').config();
 const Movie = require('./schemas/MovieInformation')
+const Rating = require('./schemas/MovieRatings')
 
 // DB 
 const dataBase = process.env.DATABASE
@@ -25,12 +26,35 @@ const connexion = async () => {
     }
   }
 
+  const addRating = async (data) => {
+
+        try {
+          const newRating = await new Rating(data)
+          newRating.save(); 
+          console.log(newRating)
+          console.log("Inner Success")
+          return newRating
+        } catch (error) {
+          console.error(error.message) 
+          console.log("Inner Failure ")
+        }
+
+  }
   const getAllMovies = async () => {
     try {
       const movieRecords = await Movie.find()
       return movieRecords
     } catch (error) {
         console.log(error)
+    }
+  }
+
+  const getAllRatings = async () => {
+    try {
+      const ratingRecords = await Rating.find()
+      return ratingRecords
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -43,4 +67,4 @@ const connexion = async () => {
       }
     }
 
-module.exports = {connexion, addMovie, getAllMovies, getMovieById}
+module.exports = {connexion, addMovie, getAllMovies, getMovieById, addRating, getAllRatings}

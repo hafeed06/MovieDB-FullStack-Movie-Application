@@ -1,6 +1,7 @@
 const express = require('express')
 const mydb = require('./mongodb/mongo')
 const moviesRouter = require('./routes/movies')
+const ratingsRouter = require('./routes/ratings')
 require('dotenv').config();
 // CORS For fixing Policy issue : 
 // TODO :  needs to be more restricted for production
@@ -14,6 +15,7 @@ app.use(express.json())
 mydb.connexion()
 // Routes: 
 app.use('/api/movies', moviesRouter)
+app.use('/api/ratings', ratingsRouter)
 // Start Server
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

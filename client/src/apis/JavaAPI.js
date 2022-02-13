@@ -39,6 +39,7 @@ export const addUser = async (data) => {
   console.log(contactData)
 
   // Actions 
+  // TODO - This route will have JWT Issues, need to be fixed. 
   const addContact = (contactData) => JavaAPI.post('/contacts/addContact', contactData).then(res => { return res.data.contactId })
   const addRole = async (roleData) => await JavaAPI.post('/users/addRole', roleData) // .then(res => console.log(res.data))
   const addAddress = (addressData) => JavaAPI.post('/addresses/addAddress', addressData) // .then(res => console.log(res.data))
@@ -46,6 +47,7 @@ export const addUser = async (data) => {
 
   // Implementation
   // Add User
+  //// TODO ----- JWT Token Header is required, think of a solution
   try {
     await JavaAPI.post('/users/addUser', userData).then(res => newUserId = res.data.userid)
     console.log("The User Has Been Added")
@@ -156,7 +158,7 @@ export const javaAddMovie = (movieId, data) => {
   console.log(" MOVIE REFERENCE IS : " + movieData.movieRef)
 
   try {
-    JavaAPI.post('/movies/addMovie', movieData).then(res => console.log(res))
+    JavaAPI.post('/movies/addMovie', movieData, {headers: headers}).then(res => console.log(res))
   } catch (error) {
     console.log(error)
   }

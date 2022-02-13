@@ -14,4 +14,6 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 //    @Query("SELECT c FROM Contact c WHERE c.email = ?1")
 //    Optional<Contact> findContactByEmail(String s);
 
+    Address getAddressByContactId(Long contactId);
+
 }

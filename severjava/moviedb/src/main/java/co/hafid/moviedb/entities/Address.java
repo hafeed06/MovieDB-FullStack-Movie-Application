@@ -1,7 +1,5 @@
 package co.hafid.moviedb.entities;
-
 import javax.persistence.*;
-
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity(name = "Address")

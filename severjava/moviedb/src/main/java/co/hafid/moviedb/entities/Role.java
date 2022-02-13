@@ -34,10 +34,12 @@ public class Role {
     )
     private Integer userid;
 
+
+
+
     public Role() {}
-    public Role(String role, Integer userid) {
+    public Role(String role) {
         this.role = role;
-        this.userid = userid;
     }
 
     public Long getRoleId() {
@@ -56,11 +58,11 @@ public class Role {
         this.role = role;
     }
 
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+//    public Integer getUserid() {
+//        return userid;
+//    }
+//
+//    public void setUserid(Integer userid) {
+//        this.userid = userid;
+//    }
 }

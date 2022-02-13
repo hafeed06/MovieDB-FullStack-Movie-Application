@@ -6,6 +6,9 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions, Grid } from '@mui/material';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import SimpleAccordion from './SimpleAccordion';
+import BasicRating from './Rating';
+import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
+import '../../../index.css'
 
 
 
@@ -28,15 +31,19 @@ const MovieCard = ({title, category,releaseDate, movieDirector, addedDate}) => {
               <Typography variant="body2" color="white">
                 {category.toUpperCase()}
               </Typography>
+              <BasicRating /> 
              
             </CardContent>
             <SimpleAccordion releaseDate={releaseDate} movieDirector={movieDirector} addedDate={addedDate}/>
           </CardActionArea>
-          <CardActions>
+            <div className='inputContainer'>
             <Button size="small" color="primary" startIcon={<PlayCircleFilledWhiteIcon />}>
               Watch 
             </Button>
-          </CardActions>
+            <Button size="small" color="primary" startIcon={<ThumbsUpDownIcon />}>
+              Rate Movie
+            </Button>
+            </div>
         </Card>
       </Grid>
       )

@@ -3,6 +3,7 @@ import {ThemeProvider} from '@mui/material/styles';
 import Navbar from './Components/Navbar/Navbar';
 import MainRouter from './routes/MainRouter';
 import { useEffect } from 'react';
+import './index.css'
 
 
 

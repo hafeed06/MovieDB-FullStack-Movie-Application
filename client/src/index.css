@@ -11,3 +11,71 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+header {
+  background-color: fuchsia;
+}
+
+.fullHeight {
+  height:100%; 
+}
+
+.underNavBar {
+  margin-top: 100px;
+}
+
+.gridHolder {
+  margin-top: 20px !important;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
+a {
+  text-decoration: none;
+  color:inherit;
+}
+
+.container {
+  margin-top:20px; 
+  margin-bottom:20px; 
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 10px 5px;
+}
+
+.inputContainerCenter {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 10px ;
+}
+
+.lineBreaker {
+  width:100%; 
+  height:5px;
+  background:#78BCF8;  
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.specialButton {
+  background-color: #0FA097;
+}
+.centered {
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.fatPaper {
+  padding:2; 
+  text-align: 'center';
+  margin-bottom: 2; 
+  justify-content:'center';
+}

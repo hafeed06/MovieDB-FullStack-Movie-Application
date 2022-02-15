@@ -35,6 +35,7 @@ const NewMovieForm = ({handleSubmit, bigInput, data, genres, setData}) => {
                 </Select>
             </FormControl>
             <TextField name="movieDirector" label="Movie Director" variant="outlined" value={data.movieDirector} sx={bigInput} onChange={handleChange} required/>
+            <TextField name="link" label="Link to Movie" variant="outlined" value={data.link} sx={bigInput} onChange={handleChange} required/>
 
             <Button type="submit" variant="contained" color="primary"  sx={{width:'50%', marginBottom:2}}> Add Movie</Button>
             </form>

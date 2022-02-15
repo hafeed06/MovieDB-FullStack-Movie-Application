@@ -45,6 +45,7 @@ const ListMovies = () => {
                 releaseDate={movieList[k].releaseDate}
                 movieDirector={movieList[k].movieDirector}
                 addedDate={movieList[k].addedDate}
+                movieLink={movieList[k].link}
                  />
                 )
         }

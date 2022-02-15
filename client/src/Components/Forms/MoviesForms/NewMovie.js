@@ -24,6 +24,7 @@ const NewMovie = () => {
         releaseDate:2000,
         category:'',
         movieDirector:'',
+        link:'', 
         addedDate : JDBCDateParsing(currentDate)
     }
     // Data Handling 

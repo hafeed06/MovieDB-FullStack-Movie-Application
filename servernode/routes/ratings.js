@@ -15,6 +15,18 @@ router.post('/add',  async (req,res) => {
     }
 })
 
+
+router.get('/score/:id', async (req,res) => {
+    try {
+        const movieId = req.params.id
+        const getMovie = await mydb.getScore(movieId)
+        res.status(200).json(getMovie)
+      } catch (error) {
+          res.status(200).send({})
+      }
+})
+
+
 router.get('/', async (req,res) => {
     try {
         const ratingRecords = await mydb.getAllRatings()

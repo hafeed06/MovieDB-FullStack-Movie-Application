@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 import headers from '../utils/auth/headers';
 import redirectToHome from '../utils/redirections/redirectToHome';
 
+
 const cookies = new Cookies();
 const JavaAPI = axios.create({
   baseURL: process.env.REACT_APP_APIJAVA_URL
@@ -86,7 +87,9 @@ export const authUser = async (data, setSubmitted, setError) => {
   try {
     await JavaAPI.post('/authenticate', data).then(res => {
       cookies.remove('token')
-      cookies.set("token", res.data.jwtToken, {'path': '/'})
+      let tokenExpiry = new Date()
+      tokenExpiry.setHours(tokenExpiry.getHours() + 5)
+      cookies.set("token", res.data.jwtToken, {path: '/', expires: tokenExpiry})
     })
     console.log("Successful Authentication")
     setError(false)
@@ -133,7 +136,7 @@ export const getFullInformation = async () => {
             try {
               let addressInfo = await JavaAPI.get(`/addresses/${contactId}`, {headers: headers})
               userInformation = {...userInformation, ...addressInfo.data}
-              console.log(userInformation)
+              return userInformation
             } catch (error) {
               console.log(error)
             }

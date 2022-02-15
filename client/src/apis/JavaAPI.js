@@ -175,6 +175,14 @@ export const getJavaMovies = async () => {
   return movieData
 }
 
+// Add Seen movies 
+
+export const addSeenMovie = async (movieData) => {
+  JavaAPI.post('/movies/addLastSeenMovie', movieData, {headers: headers})
+  .then(res => console.log(res))
+  .catch(error => console.log(error.response.message))
+}
+
 export default JavaAPI
 
 

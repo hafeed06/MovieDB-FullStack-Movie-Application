@@ -1,9 +1,12 @@
 package co.hafid.moviedb.service;
 
 import co.hafid.moviedb.entities.Movie;
+import co.hafid.moviedb.entities.SeenMovie;
 import co.hafid.moviedb.entities.User;
 import co.hafid.moviedb.repositories.MovieRepository;
+import co.hafid.moviedb.repositories.SeenMovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +16,9 @@ public class MovieService {
 
     @Autowired
     MovieRepository movieRepository;
+
+    @Autowired
+    SeenMovieRepository seenMovieRepository;
 
     public MovieService() {}
 
@@ -36,6 +42,15 @@ public class MovieService {
         movieRepository.deleteById(movieId);
     }
 
+    // Add 1 LastSeen movie Information
 
+    public SeenMovie addSeenMovie(SeenMovie seenMovie) {
+        return seenMovieRepository.save(seenMovie);
+    }
 
+    // Get 10 LastSeenMovies
+
+    public List<SeenMovie> getTenLastSeenMovies() {
+        return seenMovieRepository.findAllByOrderBySeenDateDesc(PageRequest.of(0,10));
+    }
 }

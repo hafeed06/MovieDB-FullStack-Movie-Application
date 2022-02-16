@@ -18,7 +18,8 @@ const connexion = async () => {
       try {
         const newMovie = await new Movie(data)
         newMovie.save(); 
-        console.log(newMovie)
+        delete newMovie.image
+        // console.log(newMovie)
         return newMovie
       } catch (error) {
           console.error(error.message) 

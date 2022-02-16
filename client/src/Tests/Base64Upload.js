@@ -5,13 +5,20 @@ import { useState } from 'react';
 const Base64Upload = () => {
 
     const [files, setFiles] = useState([])
-    const getFiles = e => {
-        setFiles(e.target.f)
+    const [image, setImage] = useState("")
+
+    const getFiles = (files) => {
+        console.log(files[0].base64)
+        setFiles({files: files})
+        files[0].base64 && setImage(files[0].base64)
     }
 
-  return (
-    <div>Base64Upload</div>
-  )
+    return (
+        <div>
+            <FileBase64 multiple={true} onDone={ getFiles} />
+            { image && <img src={image} /> }
+        </div>
+    )
 }
 
 export default Base64Upload

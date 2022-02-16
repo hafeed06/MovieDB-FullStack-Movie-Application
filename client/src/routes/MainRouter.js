@@ -12,6 +12,7 @@ import AddRating from '../pages/AddRating';
 import {useRecoilValue} from 'recoil'
 import { authState } from '../Atoms';
 import WatchMovie from '../pages/WatchMovie';
+import Base64Upload from '../Tests/Base64Upload';
 
 const Mainrouter = () => {
 
@@ -70,6 +71,7 @@ const Mainrouter = () => {
                 // Test Route 
 
                 <Route exact path="/testInfo" element={<TestFullInformation/>}/>
+                <Route exact path="/testUpload" element={<Base64Upload/>}/>
             </Routes>
         </Router>
     )

@@ -49,9 +49,16 @@ a {
   padding: 10px 5px;
 }
 
+.inputContainerPadding {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 10px 15px;
+}
+
 .inputContainerCenter {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin: 0 auto;
   padding: 10px ;
 }

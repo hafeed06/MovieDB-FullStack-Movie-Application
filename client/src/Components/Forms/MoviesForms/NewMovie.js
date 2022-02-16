@@ -45,6 +45,9 @@ const NewMovie = () => {
     "Drama Films",
     "Westerns",
     "Historical",
+    "Action",
+    "History",
+    "Romance",
     "Documentary"]
     // Submit Handling
     const handleSubmit = async (e) => {

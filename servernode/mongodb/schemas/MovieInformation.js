@@ -6,6 +6,7 @@ const movieInfoSchema= new mongoose.Schema({
     category: String,
     movieDirector:String, 
     link: String, 
+    image: String, 
 },{ collection: 'movieinformation' })
 
 

@@ -17,7 +17,8 @@ router.post('/add', async (req,res) => {
             "releaseDate" : req.body.releaseDate,
             "category" : req.body.category,
             "movieDirector" : req.body.movieDirector, 
-            "link" : req.body.link
+            "link" : req.body.link,
+            "image": req.body.image
         }
         try {
             const movieDetails = await mydb.addMovie(data)

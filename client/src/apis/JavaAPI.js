@@ -183,6 +183,16 @@ export const addSeenMovie = async (movieData) => {
   .catch(error => console.log(error.response.message))
 }
 
+export const getJavaMovieViews = async (allMovies) => {
+  const allViews = []
+  for(let i = 0; i < allMovies.length; i++) {
+    await JavaAPI.get(`movies/getViews/${allMovies[i]._id}`, {headers: headers})
+    .then (res => allViews.push(res.data))
+    .catch(error => console.log(error.response.message))
+  }
+  return allViews
+}
+
 export default JavaAPI
 
 

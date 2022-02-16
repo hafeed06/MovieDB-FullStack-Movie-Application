@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getJavaMovieViews } from "./JavaAPI";
 
 const NodeAPI = axios.create({
     baseURL: "http://localhost:5000/api"
@@ -19,11 +20,23 @@ const NodeAPI = axios.create({
   }
 
   export const getNodeMovies = async () => {
-        let movieData = null; 
-        await NodeAPI.get('/movies')
-        .then(res => movieData = res.data)
-        .catch(error => console.log(error.response.message))
-        return movieData
+
+      try {
+        const movieResults = await NodeAPI.get('/movies') 
+        const movieData = movieResults.data 
+        try {
+          const allScores = await getAllScores(movieData)
+          const allViews = await getJavaMovieViews(movieData)
+          movieData.map((e,k) => { e.score = allScores[k]; e.views = allViews[k] })
+          console.log(movieData)
+          return movieData
+        } catch (error) {
+          console.log(error.response.message)
+        }
+
+      } catch (error) {
+        console.log(error.response.message)
+      }
   }
 
   export const getNodeMovieById = async (id) => {
@@ -48,4 +61,14 @@ const NodeAPI = axios.create({
     .then(res => scoreData = res.data.score)
     .catch(error => console.log(error.response.message))
     return scoreData
+  }
+
+  export const getAllScores = async (allMovies) => {
+    const allScores = []
+    for(let i = 0; i < allMovies.length; i++) {
+      await NodeAPI.get(`/ratings/score/${allMovies[i]._id}`)
+      .then(res => allScores.push(res.data.score))
+      .catch(error => console.log(error.response.message))
+    }
+    return allScores
   }

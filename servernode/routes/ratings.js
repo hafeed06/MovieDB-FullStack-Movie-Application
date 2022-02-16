@@ -15,7 +15,6 @@ router.post('/add',  async (req,res) => {
     }
 })
 
-
 router.get('/score/:id', async (req,res) => {
     try {
         const movieId = req.params.id

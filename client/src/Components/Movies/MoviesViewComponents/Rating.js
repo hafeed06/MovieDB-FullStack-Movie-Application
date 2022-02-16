@@ -3,19 +3,9 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
-import { getScore } from '../../../apis/NodeAPI';
-
-export default function BasicRating({movieid}) {
-  const [value, setValue] = React.useState(0);
-
-    React.useEffect(() => {
-        const getMovieScore = async () => {
-          const movieScore = await getScore(movieid).then(console.log("Finished"))
-          console.log("Rating is: " + movieid + " => " + movieScore)
-          if(movieScore !== undefined) setValue(movieScore)
-        }
-        getMovieScore()
-    }, [])
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import '../../../index.css'
+export default function BasicRating({movieid, score, views}) {
 
   return (
     <Box
@@ -31,12 +21,16 @@ export default function BasicRating({movieid}) {
           setValue(newValue);
         }}
       /> */}
-      <Typography component="legend" color="white">User Ratings : {
-      value > 0 ?
-      (value/10)*100 + "%" : 
+            <div className="inlineTextIcon">
+      <VisibilityIcon color="primary"/>
+      <Typography component="legend" variant="body2" color="white">&nbsp; {views} </Typography>
+      </div>
+      <Typography component="legend" variant="body2" color="white">User Ratings : {
+      score > 0 ?
+      (score/10)*100 + "%" : 
       "No Ratings"
       }</Typography>
-      <Rating name="read-only" value={value} readOnly max={10}
+      <Rating name="read-only" value={score} readOnly max={10}
       emptyIcon={<StarIcon style={{ opacity: 0.55, color:"#4287f5" }} fontSize="inherit" />} 
       />
       {/* <Typography component="legend">Disabled</Typography>

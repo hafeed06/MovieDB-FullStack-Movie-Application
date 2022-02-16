@@ -27,7 +27,8 @@
     "recoil": "^0.6.1",
     "redux": "^4.1.2",
     "universal-cookie": "^4.0.4",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2", 
+    "node-fetch": ">=2.6.7"
   },
   "scripts": {
     "start": "react-scripts start",

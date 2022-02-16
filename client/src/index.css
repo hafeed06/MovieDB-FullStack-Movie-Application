@@ -63,6 +63,20 @@ a {
   padding: 10px ;
 }
 
+.inputContainerCloser {
+  display: flex;
+  justify-content: space-evenly; 
+  margin: 0 auto;
+  padding: 10px 15px;
+}
+
+.inlineTextIcon {
+  display:flex;
+  align-items:center; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+}
+
 .lineBreaker {
   width:100%; 
   height:5px;

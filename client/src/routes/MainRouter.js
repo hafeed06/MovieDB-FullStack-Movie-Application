@@ -61,8 +61,8 @@ const Mainrouter = () => {
             <Routes>
                 // Add Redirect to Login page is user is not logged in on most routes
                 <Route exact path="/" element={<Home/>}/>
-                <Route exact path="/signup" element={<Signup/>}/>
-                <Route exact path="/login" element={ !isAuth ? <Login /> : <Navigate to="/" /> } />
+                <Route exact path="/signup" element={!isAuth ? <Signup/> : <Navigate to="/" /> }/>
+                <Route exact path="/login"  element={ !isAuth ? <Login /> : <Navigate to="/" /> } />
                 <Route exact path="/newmovie" element={<NewMovie/>}/>
                 <Route exact path="/listmovies" element={<ListMovies/>}/>
                 <Route exact path="/watchmovie/:movieid" element={<WatchMovie/>}/>

@@ -10,5 +10,6 @@ public interface SeenMovieRepository extends JpaRepository<SeenMovie, Long> {
 
     List<SeenMovie> findAllByOrderBySeenDateDesc(Pageable pageable);
 
+    Integer countByMovieRef(String movieRef);
 
 }

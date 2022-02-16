@@ -23,9 +23,15 @@ const ListMovies = () => {
             const result = await getMovies()
             console.log("This is fetch Movies")
             setMovieList(result)
+            
         }
         fetchMovies()
     }, [])
+
+    useEffect(() => {
+        console.log(movieList)
+        console.log("Changed")
+    },[movieList])
 
     ////////////////////////////////// SEARCH 
     const handleSearchChange = e => {
@@ -33,15 +39,27 @@ const ListMovies = () => {
         const filtered = movieList.filter(e => e.title.toLowerCase().includes(searchFor))
         setFilteredMovies(filtered)
         setFilterMode(true)
-        console.log(filteredMovies)
     }
 
     const handleSort = e => {
+        // Only one is
         const sortBy = e.target.value
+        let sortedList = [{}]
         if(sortBy === "newest") {
-            const sortedList = movieList.sort((a,b) => a.releaseDate - b.releaseDate)
-            setMovieList(sortedList)
-            setFilteredMovies(sortedList)
+            sortedList = movieList.sort((a,b) => b.releaseDate - a.releaseDate)
+            setMovieList([...sortedList])
+            setFilteredMovies([...sortedList])
+
+        }
+        else if (sortBy == "rating") {
+            let sortedList = movieList.sort((a,b) => b.score - a.score)
+            setMovieList([...sortedList])
+            setFilteredMovies([...sortedList])
+        }
+        else if (sortBy == "views") {
+            let sortedList = movieList.sort((a,b) => b.views - a.views)
+            setMovieList([...sortedList])
+            setFilteredMovies([...sortedList])
         }
     }
     ///////////////////////////////////////////
@@ -103,6 +121,8 @@ const ListMovies = () => {
                                     addedDate={filteredMovies[k].addedDate}
                                     movieLink={filteredMovies[k].link}
                                     image={filteredMovies[k].image}
+                                    score={filteredMovies[k].score}
+                                    views={filteredMovies[k].views}
                                 />
                             ))
                             :
@@ -117,6 +137,8 @@ const ListMovies = () => {
                                     addedDate={movieList[k].addedDate}
                                     movieLink={movieList[k].link}
                                     image={movieList[k].image}
+                                    score={movieList[k].score}
+                                    views={movieList[k].views}
                                 />
                             )
                     }

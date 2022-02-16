@@ -1,5 +1,6 @@
 package co.hafid.moviedb.controllers;
 
+import co.hafid.moviedb.customDTOs.MovieRef;
 import co.hafid.moviedb.entities.Movie;
 import co.hafid.moviedb.entities.SeenMovie;
 import co.hafid.moviedb.entities.User;
@@ -55,4 +56,9 @@ public class MovieController {
         return movieService.getTenLastSeenMovies();
     }
 
+    // Get views by movieRef
+    @GetMapping(path = "/movies/getViews/{movieRef}")
+    public Integer getMovieViews(@PathVariable("movieRef") String movieRef) {
+        return movieService.getViewByMovieRef(movieRef);
+    }
 }

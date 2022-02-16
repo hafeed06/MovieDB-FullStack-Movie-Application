@@ -63,7 +63,7 @@ const ListMovies = () => {
                         ((!filteredMovies && !movieList) || filteredMovies.length === 0) ?
                         <Typography variant="h4" color="error" p={5}>
                             <SentimentVeryDissatisfiedIcon fontSize='big'/>
-                            &nbsp; No movies found ... </Typography>
+                            &nbsp;No movies found ... </Typography>
                         :
                         filteredMovies ?
                             filteredMovies.map(

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Button, Typography, Paper, TextField, InputAdornment } from '@mui/material';
+import { Button, Typography, Paper, TextField, InputAdornment, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import MovieCard from './MoviesViewComponents/MovieCard';
 import axios from 'axios'
 import LoadingBar from './MoviesViewComponents/LoadingBar';
@@ -13,8 +13,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
 const ListMovies = () => {
-    const [movieList, setMovieList] = useState(null)
-    const [filteredMovies, setFilteredMovies] = useState(null)
+    const [movieList, setMovieList] = useState([])
+    const [filteredMovies, setFilteredMovies] = useState([])
+    const [filterMode, setFilterMode] = useState(null)
 
     useEffect(() => {
 
@@ -27,11 +28,21 @@ const ListMovies = () => {
     }, [])
 
     ////////////////////////////////// SEARCH 
-    const handleSearchChange = (e) => {
+    const handleSearchChange = e => {
         let searchFor = e.target.value.toLowerCase()
         const filtered = movieList.filter(e => e.title.toLowerCase().includes(searchFor))
         setFilteredMovies(filtered)
+        setFilterMode(true)
         console.log(filteredMovies)
+    }
+
+    const handleSort = e => {
+        const sortBy = e.target.value
+        if(sortBy === "newest") {
+            const sortedList = movieList.sort((a,b) => a.releaseDate - b.releaseDate)
+            setMovieList(sortedList)
+            setFilteredMovies(sortedList)
+        }
     }
     ///////////////////////////////////////////
 
@@ -40,10 +51,11 @@ const ListMovies = () => {
             {!movieList && <LoadingBar />}
             <Box sx={{ flexGrow: 1 }} m={5} >
                 <div className="inputContainer">
+                    {/* SEARCH BAR */ }
                     <TextField
                         id="standard-basic"
                         label="Search for a movie ... "
-                        variant="standard"
+                        variant="filled"
                         onChange={handleSearchChange}
                         InputProps={{
                             startAdornment: (
@@ -53,20 +65,35 @@ const ListMovies = () => {
                             ),
                         }}
                     />
+                    <FormControl style={{width: '20%'}}>
+                <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+                <Select 
+                name="sort"
+                onChange = {handleSort}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Sort By"
+                defaultValue="default"
+                >
+                <MenuItem value="default">Default</MenuItem>
+                <MenuItem value="rating">Rating</MenuItem>
+                <MenuItem value="views">Views</MenuItem>
+                <MenuItem value="newest">Newest</MenuItem>
+                </Select>
+            </FormControl>
 
-                    <TextField id="standard-basic" label="Standard" variant="standard" />
                 </div>
                 <Grid container spacing={2} alignItems="stretch">
 
                     {
                         // If Filetedmovies is not null show movies from filteredMovies list 
-                        ((!filteredMovies && !movieList) || filteredMovies.length === 0) ?
+                        ((filteredMovies.length === 0 && !movieList.length === 0) || (filterMode && filteredMovies.length === 0)) ?
                         <Typography variant="h4" color="error" p={5}>
                             <SentimentVeryDissatisfiedIcon fontSize='big'/>
                             &nbsp;No movies found ... </Typography>
                         :
-                        filteredMovies ?
-                            filteredMovies.map(
+                        filterMode ?
+                            (filteredMovies.map(
                                 (e, k) => <MovieCard key={`movie_${k}`}
                                     movieid={filteredMovies[k]._id}
                                     title={filteredMovies[k].title}
@@ -77,7 +104,7 @@ const ListMovies = () => {
                                     movieLink={filteredMovies[k].link}
                                     image={filteredMovies[k].image}
                                 />
-                            )
+                            ))
                             :
                             movieList &&
                             movieList.map(

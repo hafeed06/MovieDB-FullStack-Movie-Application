@@ -49,9 +49,16 @@ a {
   padding: 10px 5px;
 }
 
+.inputContainerPadding {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 10px 15px;
+}
+
 .inputContainerCenter {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin: 0 auto;
   padding: 10px ;
 }
@@ -79,3 +86,19 @@ a {
   margin-bottom: 2; 
   justify-content:'center';
 }
+
+.video-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.video-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+

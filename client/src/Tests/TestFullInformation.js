@@ -6,7 +6,10 @@ const TestFullInformation = () => {
 
     useEffect(() => {
         console.log("Testing User Full Information");
-        getFullInformation() 
+        const fullInfo = async () => {
+          
+        }
+        const userInformation = getFullInformation() 
     }, [])
     
 

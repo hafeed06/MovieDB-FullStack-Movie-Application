@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
+import FileBase64 from 'react-file-base64';
 
 const NewMovieForm = ({handleSubmit, bigInput, data, genres, setData}) => {
 
@@ -15,6 +16,12 @@ const NewMovieForm = ({handleSubmit, bigInput, data, genres, setData}) => {
         setData({...data, [e.target.name]:e.target.value})
         console.log(data)
     }
+
+    // File Upload for Image state 
+    const getFiles = (files) => {
+        setData({...data, image: files[0].base64})
+    }
+
 
     return (
     <form onSubmit={handleSubmit}>
@@ -35,8 +42,12 @@ const NewMovieForm = ({handleSubmit, bigInput, data, genres, setData}) => {
                 </Select>
             </FormControl>
             <TextField name="movieDirector" label="Movie Director" variant="outlined" value={data.movieDirector} sx={bigInput} onChange={handleChange} required/>
-
-            <Button type="submit" variant="contained" color="primary"  sx={{width:'50%', marginBottom:2}}> Add Movie</Button>
+            <TextField name="link" label="Link to Movie" variant="outlined" value={data.link} sx={bigInput} onChange={handleChange} required/>
+            <div className="inputContainerPadding">
+                <Typography variant="body2" color="primary">Poster Image : </Typography>
+                <FileBase64 multiple={true} onDone={ getFiles}/>
+                </div>
+            <Button type="submit" variant="contained" color="primary"  sx={bigInput}> Add Movie</Button>
             </form>
     )
 }

@@ -10,8 +10,9 @@ import BasicRating from './Rating';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import '../../../index.css'
 import RateMovie from './RateMovie';
+import {Link} from 'react-router-dom'
 
-const MovieCard = ({movieid, title, category,releaseDate, movieDirector, addedDate}) => {
+const MovieCard = ({movieid, title, category,releaseDate, movieDirector, addedDate, image}) => {
 
 
     const [addRating, setAddRating] = useState(false)
@@ -26,8 +27,8 @@ const MovieCard = ({movieid, title, category,releaseDate, movieDirector, addedDa
             <CardMedia
               component="img"
               height="300"
-              image="./images/movies/movie01.jpg"
-              alt="green iguana"
+              image={image}
+              alt={title}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div" color="primary">
@@ -36,20 +37,20 @@ const MovieCard = ({movieid, title, category,releaseDate, movieDirector, addedDa
               <Typography variant="body2" color="white">
                 {category.toUpperCase()}
               </Typography>
-              <BasicRating /> 
+              <BasicRating movieid={movieid}/> 
              
             </CardContent>
             <SimpleAccordion releaseDate={releaseDate} movieDirector={movieDirector} addedDate={addedDate}/>
           </CardActionArea>
             <div className='inputContainer'>
             <Button size="small" color="primary" startIcon={<PlayCircleFilledWhiteIcon />}>
-              Watch 
+            <Link to = {`/watchMovie/${btoa(movieid)}`}>Watch</Link>
             </Button>
             <Button size="small" color="primary" startIcon={<ThumbsUpDownIcon />} onClick={handleAddRating}>
               Rate Movie
             </Button>
             </div>
-            { addRating && <RateMovie movieid={movieid}/> } 
+            { addRating && <RateMovie movieid={movieid} setAddRating = {setAddRating}/> } 
         </Card>
       </Grid>
       )

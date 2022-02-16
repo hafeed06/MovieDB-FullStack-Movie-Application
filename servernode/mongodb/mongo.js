@@ -18,7 +18,8 @@ const connexion = async () => {
       try {
         const newMovie = await new Movie(data)
         newMovie.save(); 
-        console.log(newMovie)
+        delete newMovie.image
+        // console.log(newMovie)
         return newMovie
       } catch (error) {
           console.error(error.message) 
@@ -58,6 +59,25 @@ const connexion = async () => {
     }
   }
 
+  const getScore = async (movieid) => {
+    try {
+      const ratingRecords = await Rating.find({movieid : movieid})
+      const score = {score: null}
+      if (ratingRecords.length === 1) score.score = ratingRecords[0].rating
+      else {
+        let sum = 0
+        ratingRecords.map(e => sum+= e.rating) 
+        score.score = Math.round(sum/ratingRecords.length)
+        // score.score = ratingRecords.reduce((a,b) => a.rating + b.rating)
+      }
+
+      return score
+    } catch (error) {
+      // This will throw no errors because empty is not an error, needs handling... 
+      return error
+    }
+  }
+
     const getMovieById = async (movieId) => {
       try {
         const movieRecords = await Movie.findById(movieId)
@@ -67,4 +87,4 @@ const connexion = async () => {
       }
     }
 
-module.exports = {connexion, addMovie, getAllMovies, getMovieById, addRating, getAllRatings}
+module.exports = {connexion, addMovie, getAllMovies, getMovieById, addRating, getAllRatings, getScore}

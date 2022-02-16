@@ -1,6 +1,7 @@
 package co.hafid.moviedb.entities;
 import javax.persistence.*;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -26,7 +27,7 @@ public class SeenMovie {
             name = "seen_date",
             nullable = false
     )
-    private Date seenDate;
+    private Timestamp seenDate;
     @Column(
             name = "movie_ref",
             nullable = false
@@ -34,7 +35,7 @@ public class SeenMovie {
     private String movieRef;
 
     public SeenMovie() {}
-    public SeenMovie(Integer userid, Date seenDate, String movieRef) {
+    public SeenMovie(Integer userid, Timestamp seenDate, String movieRef) {
         this.userid = userid;
         this.seenDate = seenDate;
         this.movieRef = movieRef;
@@ -60,7 +61,7 @@ public class SeenMovie {
         return seenDate;
     }
 
-    public void setSeenDate(Date seenDate) {
+    public void setSeenDate(Timestamp seenDate) {
         this.seenDate = seenDate;
     }
 

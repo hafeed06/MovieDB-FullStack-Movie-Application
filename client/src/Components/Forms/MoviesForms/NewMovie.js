@@ -24,6 +24,7 @@ const NewMovie = () => {
         releaseDate:2000,
         category:'',
         movieDirector:'',
+        link:'', 
         addedDate : JDBCDateParsing(currentDate)
     }
     // Data Handling 
@@ -44,6 +45,9 @@ const NewMovie = () => {
     "Drama Films",
     "Westerns",
     "Historical",
+    "Action",
+    "History",
+    "Romance",
     "Documentary"]
     // Submit Handling
     const handleSubmit = async (e) => {

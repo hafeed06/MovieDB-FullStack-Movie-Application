@@ -1,6 +1,7 @@
 package co.hafid.moviedb.controllers;
 
 import co.hafid.moviedb.entities.Movie;
+import co.hafid.moviedb.entities.SeenMovie;
 import co.hafid.moviedb.entities.User;
 import co.hafid.moviedb.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,18 @@ public class MovieController {
         System.out.println(movie.getMovieRef());
         movieService.deleteMovie(movie.getMovieId());
         // TODO : Response Management
+    }
+
+    // Add 1 LastSeen Movie
+
+    @PostMapping(path = "/movies/addLastSeenMovie")
+    public SeenMovie addLastSeenMovie(@RequestBody SeenMovie seenMovie) {
+        return movieService.addSeenMovie(seenMovie);
+    }
+
+    @GetMapping(path = "/movies/getLastSeen")
+    public List<SeenMovie> getLastSeenMovies() {
+        return movieService.getTenLastSeenMovies();
     }
 
 }

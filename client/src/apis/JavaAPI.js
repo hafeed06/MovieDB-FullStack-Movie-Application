@@ -193,6 +193,33 @@ export const getJavaMovieViews = async (allMovies) => {
   return allViews
 }
 
+export const getCurrentUserId = async () => {
+  try {
+    let userInformation = await JavaAPI.get('/users/current', {headers: headers})
+    return userInformation.data.userid
+  } catch (error) {
+    console.log(error.response.message)
+  }
+}
+
+export const getLastSeenMoviesCurrentUser = async () => {
+  try {
+    const userid = await getCurrentUserId()
+    try {
+      // We will return this as an array of moviesIDs to make it simpler to filter on the Home page, also to make it lightweight
+      const lastSeenMoviesArray = []
+      let lastSeenMovies = await JavaAPI.get(`/movies/getLastSeen/${userid}/7`, {headers: headers})
+      lastSeenMovies.data.map(e => lastSeenMoviesArray.push(e.movieRef))
+      return lastSeenMoviesArray
+    } catch (error) {
+      console.log(error.response.message)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+    
+}
+
 export default JavaAPI
 
 

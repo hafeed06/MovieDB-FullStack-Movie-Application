@@ -6,13 +6,14 @@ import { useRecoilValue } from 'recoil'
 import { userInformationState } from '../../../Atoms';
 import { addRating } from '../../../apis/NodeAPI';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { getMovies } from '../../../apis/MergeAPI';
 
 
 const customTextField = { "& .MuiOutlinedInput-root, MuiOutlinedInput-root:hover": { "& > fieldset": { borderColor: "orange" } }, "& .MuiOutlinedInput-root:hover": { "& > fieldset": { borderColor: "orange" } } };
 const labelStyle = { style: { color: '#fff' } }
 const inputStyle = { style: { color: 'white' } }
 
-const RateMovie = ({ movieid, setAddRating }) => {
+const RateMovie = ({ movieid, setAddRating, setMovieList }) => {
   const userInformation = useRecoilValue(userInformationState)
   const userid = userInformation.userid
   const [ratingSubmitted, setRatingSubmitted] = useState(null)
@@ -25,11 +26,13 @@ const RateMovie = ({ movieid, setAddRating }) => {
     console.log(ratingInput)
   }, [ratingInput])
 
-  const handleAddRating = () => {
+  const handleAddRating = async () => {
     if (ratingInput.commentTitle && ratingInput.commentContent) {
       // TODO Handle Errors ... 
-      addRating(ratingInput)
+      const rating = addRating(ratingInput)
       setRatingSubmitted(true)
+      const movieList = await getMovies(); 
+      setMovieList([...movieList])
     }
   }
 

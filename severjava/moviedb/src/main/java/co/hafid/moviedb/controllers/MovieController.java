@@ -3,7 +3,6 @@ package co.hafid.moviedb.controllers;
 import co.hafid.moviedb.customDTOs.MovieRef;
 import co.hafid.moviedb.entities.Movie;
 import co.hafid.moviedb.entities.SeenMovie;
-import co.hafid.moviedb.entities.User;
 import co.hafid.moviedb.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +53,18 @@ public class MovieController {
     @GetMapping(path = "/movies/getLastSeen")
     public List<SeenMovie> getLastSeenMovies() {
         return movieService.getTenLastSeenMovies();
+    }
+
+
+//    @GetMapping(path = "/movies/getLastSeen/{userid}")
+//    public List<SeenMovie> getLastSeenMovies(@PathVariable("userid") Long userid) {
+//        return movieService.getLastSeenCustom(userid);
+//    }
+
+    // Get unique last seen movies by specific user
+    @GetMapping(path = "/movies/getLastSeen/{userid}/{limit}")
+    public List<SeenMovie> getLastSeenMovies(@PathVariable("userid") Long userid, @PathVariable("limit") Integer limit) {
+        return movieService.getLastSeenCustom(userid, limit);
     }
 
     // Get views by movieRef

@@ -122,6 +122,7 @@ const ListMovies = () => {
                                     image={filteredMovies[k].image}
                                     score={filteredMovies[k].score}
                                     views={filteredMovies[k].views}
+                                    setMovieList = {setMovieList}
                                 />
                             ))
                             :
@@ -138,6 +139,7 @@ const ListMovies = () => {
                                     image={movieList[k].image}
                                     score={movieList[k].score}
                                     views={movieList[k].views}
+                                    setMovieList = {setMovieList}
                                 />
                             )
                     }

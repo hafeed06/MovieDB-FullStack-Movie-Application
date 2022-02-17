@@ -12,7 +12,7 @@ import '../../../index.css'
 import RateMovie from './RateMovie';
 import {Link} from 'react-router-dom'
 
-const MovieCard = ({movieid, title, category,releaseDate, movieDirector, addedDate, image, score, views}) => {
+const MovieCard = ({movieid, title, category,releaseDate, movieDirector, addedDate, image, score, views, setMovieList}) => {
 
 
     const [addRating, setAddRating] = useState(false)
@@ -37,7 +37,7 @@ const MovieCard = ({movieid, title, category,releaseDate, movieDirector, addedDa
               <Typography variant="body2" color="white">
                 {category.toUpperCase()}
               </Typography>
-              <BasicRating movieid={movieid} score={score} views={views} /> 
+              <BasicRating movieid={movieid} score={score} views={views}/> 
              
             </CardContent>
             <SimpleAccordion releaseDate={releaseDate} movieDirector={movieDirector} addedDate={addedDate}/>
@@ -50,7 +50,7 @@ const MovieCard = ({movieid, title, category,releaseDate, movieDirector, addedDa
               Rate Movie
             </Button>
             </div>
-            { addRating && <RateMovie movieid={movieid} setAddRating = {setAddRating}/> } 
+            { addRating && <RateMovie movieid={movieid} setAddRating = {setAddRating} setMovieList={setMovieList}/> } 
         </Card>
       </Grid>
       )

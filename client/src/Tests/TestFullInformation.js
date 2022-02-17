@@ -1,15 +1,17 @@
 import React from 'react'
-import {getFullInformation} from '../apis/JavaAPI'
+import {getFullInformation, getLastSeenMoviesCurrentUser} from '../apis/JavaAPI'
 import { useEffect } from 'react'
+import { getCurrentUserId } from '../apis/JavaAPI'
 
 const TestFullInformation = () => {
 
     useEffect(() => {
-        console.log("Testing User Full Information");
-        const fullInfo = async () => {
-          
+
+        const testAPI = async () => {
+          const x = await getLastSeenMoviesCurrentUser()
+          console.log(x)
         }
-        const userInformation = getFullInformation() 
+        testAPI()
     }, [])
     
 

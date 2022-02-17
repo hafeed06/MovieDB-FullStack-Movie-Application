@@ -21,7 +21,6 @@ const ListMovies = () => {
 
         const fetchMovies = async () => {
             const result = await getMovies()
-            console.log("This is fetch Movies")
             setMovieList(result)
             
         }
@@ -66,19 +65,19 @@ const ListMovies = () => {
 
     return (
         <div>
-            {!movieList && <LoadingBar />}
-            <Box sx={{ flexGrow: 1 }} m={5} >
+            {movieList.length === 0 && <LoadingBar />}
+            <Box sx={{ flexGrow: 1 }} mt={2} ml={5} mr={5} mb={5}>
                 <div className="inputContainer">
                     {/* SEARCH BAR */ }
                     <TextField
                         id="standard-basic"
                         label="Search for a movie ... "
-                        variant="filled"
+                        variant="outlined"
                         onChange={handleSearchChange}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <SearchIcon />
+                                    <SearchIcon /> Title: 
                                 </InputAdornment>
                             ),
                         }}
@@ -142,10 +141,6 @@ const ListMovies = () => {
                                 />
                             )
                     }
-
-
-
-
                 </Grid>
             </Box>
         </div>

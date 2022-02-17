@@ -35,11 +35,19 @@ public class Role {
     private Integer userid;
 
 
-
+    public Role(String role, Integer userid) {
+        this.role = role;
+        this.userid = userid;
+    }
 
     public Role() {}
-    public Role(String role) {
-        this.role = role;
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public Long getRoleId() {

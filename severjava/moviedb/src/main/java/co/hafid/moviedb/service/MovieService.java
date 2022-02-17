@@ -54,6 +54,12 @@ public class MovieService {
         return seenMovieRepository.findAllByOrderBySeenDateDesc(PageRequest.of(0,10));
     }
 
+    // Get 10 LastSeenMovies by User ID
+
+    public List<SeenMovie> getTenLastSeenMoviesByUserId(Long userid, Integer limit) {
+        return seenMovieRepository.getSeenMoviesByUseridOrderBySeenDateDesc(userid, PageRequest.of(0,limit));
+    }
+
     // Get Movie Views by Movie Reference
     public Integer getViewByMovieRef(String movieRef) {
         return seenMovieRepository.countByMovieRef(movieRef);

@@ -56,6 +56,11 @@ public class MovieController {
         return movieService.getTenLastSeenMovies();
     }
 
+    @GetMapping(path = "/movies/getLastSeen/{userid}/{limit}")
+    public List<SeenMovie> getLastSeenMovies(@PathVariable("userid") Long userid, @PathVariable("limit") Integer limit) {
+        return movieService.getTenLastSeenMoviesByUserId(userid, limit);
+    }
+
     // Get views by movieRef
     @GetMapping(path = "/movies/getViews/{movieRef}")
     public Integer getMovieViews(@PathVariable("movieRef") String movieRef) {

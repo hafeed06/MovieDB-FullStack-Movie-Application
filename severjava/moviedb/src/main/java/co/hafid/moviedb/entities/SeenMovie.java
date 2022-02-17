@@ -22,7 +22,7 @@ public class SeenMovie {
             name = "userid",
             nullable = false
     )
-    private Integer userid;
+    private Long userid;
     @Column(
             name = "seen_date",
             nullable = false
@@ -35,7 +35,7 @@ public class SeenMovie {
     private String movieRef;
 
     public SeenMovie() {}
-    public SeenMovie(Integer userid, Timestamp seenDate, String movieRef) {
+    public SeenMovie(Long userid, Timestamp seenDate, String movieRef) {
         this.userid = userid;
         this.seenDate = seenDate;
         this.movieRef = movieRef;
@@ -49,11 +49,11 @@ public class SeenMovie {
         this.id = id;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 

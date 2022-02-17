@@ -21,7 +21,8 @@ import LiveTvIcon from '@mui/icons-material/LiveTv';
 import capitalize from '../../utils/capitalize'
 import {useRecoilValue} from 'recoil'
 import { userInformationState } from '../../Atoms';
-
+import { deepPurple } from '@mui/material/colors';
+import { avatarName } from '../../utils/avatarName';
 
 
 const pages = [];
@@ -142,7 +143,13 @@ const Navbar = ({ pages, links, settings, isAuth}) => {
 
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="" />
+                    <Avatar sx={{ bgcolor: deepPurple[500] }}>
+
+                    {Object.keys(userInformation).length > 0 && avatarName(userInformation.name) }
+    
+
+
+                    </Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu

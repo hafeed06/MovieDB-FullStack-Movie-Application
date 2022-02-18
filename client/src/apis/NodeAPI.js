@@ -63,6 +63,15 @@ const NodeAPI = axios.create({
     return scoreData
   }
 
+  export const getRating = async (movieid) => {
+    try {
+      const ratingInformation = await NodeAPI.get(`/ratings/${movieid}`)
+      return ratingInformation.data
+    } catch (error) {
+      console.log(error.response.message)
+    }
+  }
+
   export const getAllScores = async (allMovies) => {
     const allScores = []
     for(let i = 0; i < allMovies.length; i++) {

@@ -25,11 +25,13 @@ export default function BasicRating({movieid, score, views}) {
       <VisibilityIcon color="primary"/>
       <Typography component="legend" variant="body2" color="white">&nbsp; {views} </Typography>
       </div>
-      <Typography component="legend" variant="body2" color="white">User Ratings : {
-      score > 0 ?
-      (score/10)*100 + "%" : 
-      "No Ratings"
-      }</Typography>
+      <Typography component="legend" variant="body2" color="white">User Ratings : &nbsp;
+      <span style={{"color": score >= 5 ? "#14b817" : "#d91a31"}}>
+      {
+      score > 0 ? (score/10)*100 + "%" : "No Ratings"
+      }
+      </span>
+      </Typography>
       <Rating name="read-only" value={score} readOnly max={10}
       emptyIcon={<StarIcon style={{ opacity: 0.55, color:"#4287f5" }} fontSize="inherit" />} 
       />

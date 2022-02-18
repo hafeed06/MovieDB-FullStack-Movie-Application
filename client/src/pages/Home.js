@@ -106,7 +106,7 @@ const Home = () => {
         {/* RECOMMENDATIONS  */}
         {movieList.length > 0 && (
         <Grid item xs={12} sx={{ background: '' }} ml={4} mr={4}>
-        <Divider sx={{background:'#494a4d'}}/>
+        <Divider/>
         <div className="inlineTextIcon">
             <RecommendIcon color="primary"/> 
           <Typography variant="h6" component="h2" color="primary" pl={2} pt={2} pb={1} >Recommendations</Typography>

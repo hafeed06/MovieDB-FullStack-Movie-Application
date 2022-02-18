@@ -19,10 +19,11 @@ import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 // import getUserFullInformation from '../utils/getUserFullInformation';
 import capitalize from '../../utils/capitalize'
-import {useRecoilValue} from 'recoil'
 import { userInformationState } from '../../Atoms';
 import { deepPurple } from '@mui/material/colors';
 import { avatarName } from '../../utils/avatarName';
+import {useRecoilState, useRecoilValue } from 'recoil'
+import { authState } from '../../Atoms';
 
 
 const pages = [];
@@ -30,11 +31,11 @@ const links = []
 const settings = [];
 
 
-const Navbar = ({ pages, links, settings, isAuth}) => {
+const Navbar = ({ pages, links, settings}) => {
     const userInformation = useRecoilValue(userInformationState)
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+    const [isAuth, setIsAuth] = useRecoilState(authState)
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -50,23 +51,13 @@ const Navbar = ({ pages, links, settings, isAuth}) => {
         setAnchorElUser(null);
     };
 
-    // const [userInformation, setUserInformation] = useState(null);
-    // const [userInformationLoaded, setUserInformationLoaded] = useState(null)
-    // useEffect(() => {
-
-    //     const userInformationFunction = async () => {
-    //         setUserInformation(await getUserFullInformation())
-    //         !userInformationLoaded && setUserInformationLoaded(true)
-    //     }
-    //     console.log("Home useEffect Re-Rendered! ")
-    //     // You only want to get user Information if they are authenticated
-    //     isAuth && userInformationFunction();
-    // }, [userInformationLoaded]);
-
-    // Get Full user Information 
+    const handleLogOut = () => {
+        setIsAuth(false)
+        Logout()
+    }
     
     return (
-        <AppBar position="static" color="primary">
+        <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                 <LiveTvIcon fontSize="large"/>

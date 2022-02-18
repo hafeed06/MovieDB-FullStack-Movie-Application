@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
 
 export default function ActiveRating({setRatingInput, ratingInput}) {
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(1);
 
   React.useEffect(() => {
       console.log("Rating => " + value)

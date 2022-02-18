@@ -5,7 +5,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Button, Typography, Paper } from '@mui/material';
 import { authUser } from '../../../apis/JavaAPI';
-import redirectToHome from '../../../utils/redirections/redirectToHome'
+import '../../../index.css'
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+
 
 const bigInput = {width:'95%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 // const smallInput = {width:'46%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
@@ -52,7 +54,13 @@ const LoginForm = () => {
 
             </form>
             )}
-           {(submitted && !error) && <Typography variant="h4" color="green">Successfully Authenticated</Typography>}
+           {(submitted && !error) && (
+             <div className='inlineTextIcon'>
+               <CheckBoxIcon fontColor="green" />
+                <Typography variant="body2" color="green">Successfully Authenticated</Typography>
+             </div>
+           
+           )}
           </Paper>
         </Grid>
       </Grid>

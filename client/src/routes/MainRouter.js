@@ -13,6 +13,7 @@ import {useRecoilValue} from 'recoil'
 import { authState } from '../Atoms';
 import WatchMovie from '../pages/WatchMovie';
 import Base64Upload from '../Tests/Base64Upload';
+import ViewReviews from '../pages/ViewReviews';
 
 const Mainrouter = () => {
 
@@ -43,29 +44,28 @@ const Mainrouter = () => {
             setLinks(userLinks)
             setSettings(userSettings)
         }
-        else {
+        else if(isAuth == false) {
             setPages(guestPages)
             setLinks(guestLinks)
             setSettings(guestSettings)
         }
-        console.log("Test... ")
-        console.log(pages)
-        console.log(links)
-        console.log(settings)
         setLoadNavbar(true)
+        console.log("Router useEffect Ran => " + isAuth)
 }, [isAuth])
 
     return (
         <Router>
-            {loadNavbar && <Navbar pages = {pages} links = {links} settings = {settings} isAuth = {isAuth} /> }
+            {loadNavbar && <Navbar pages = {pages} links = {links} settings = {settings} /> }
             <Routes>
                 // Add Redirect to Login page is user is not logged in on most routes
-                <Route exact path="/" element={isAuth? <Home/> : <Login />}/>
+                <Route exact path="/" element={isAuth? <Home/> : isAuth === false && <Login />}/>
                 <Route exact path="/signup" element={!isAuth ? <Signup/> : <Navigate to="/" /> }/>
                 <Route exact path="/login"  element={ !isAuth ? <Login /> : <Navigate to="/" /> } />
-                <Route exact path="/newmovie" element={isAuth? <NewMovie/> : <Login />}/>
-                <Route exact path="/listmovies" element={isAuth ? <ListMovies/> : <Login />}/>
-                <Route exact path="/watchmovie/:movieid" element={ isAuth? <WatchMovie/> : <Login />}/>
+
+                <Route exact path="/newmovie" element={isAuth? <NewMovie/> : isAuth === false && <Login />}/>
+                <Route exact path="/listmovies" element={isAuth? <ListMovies/> : isAuth === false && <Login />}/>
+                <Route exact path="/watchmovie/:movieid" element={ isAuth? <WatchMovie/> : isAuth === false && <Login />}/>
+                <Route exact path="/reviews/:movieid" element={ isAuth? <ViewReviews/> : isAuth === false && <Login />}/>
 
 
                 // Test Route 

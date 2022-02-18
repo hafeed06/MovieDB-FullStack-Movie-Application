@@ -10,7 +10,7 @@ import { authState, userInformationState } from './Atoms';
 
 const App = () => {
 
-  const [isAuth, setIsAuth] = useRecoilState(authState)
+  const [isAuth, setIsAuth] = useRecoilState(authState) 
   const [userInfo, setUserInfo] = useRecoilState(userInformationState)
 
   const isAuthenticated = useRecoilValue(authState)
@@ -28,7 +28,7 @@ const App = () => {
         setUserInfo(userInformation)
       }
     }
-    AuthResult();
+    !isAuth && AuthResult();
 
   }, []);
 

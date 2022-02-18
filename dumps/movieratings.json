@@ -1,0 +1,101 @@
+[{
+  "_id": {
+    "$oid": "620c478a1bde5e547678db78"
+  },
+  "movieid": "620c3ee48904a9803dff328a",
+  "userid": 65,
+  "rating": 8,
+  "commentTitle": "Amazing Movie",
+  "commentContent": "I really loved it better than the old one",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "620c47a91bde5e547678db87"
+  },
+  "movieid": "620c3f8b8904a9803dff328e",
+  "userid": 65,
+  "rating": 3,
+  "commentTitle": "Too Dramatic",
+  "commentContent": "They killed off most of the main characters, it's very dramatic ... ",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "620c47d51bde5e547678db96"
+  },
+  "movieid": "620c40452f6976e1cc1e35f0",
+  "userid": 65,
+  "rating": 4,
+  "commentTitle": "Bad Ending",
+  "commentContent": "It seemed like the directors did a poor job in the last season, very sad for an awesome series like this one ... ",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "620c47f61bde5e547678dba5"
+  },
+  "movieid": "620c44941bde5e547678db37",
+  "userid": 65,
+  "rating": 9,
+  "commentTitle": "Amazing Scenery",
+  "commentContent": "Very cinematic and profound, one of the best movies I watched",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "620e86014967656c60b4c205"
+  },
+  "movieid": "620c42ce1bde5e547678db1c",
+  "userid": 65,
+  "rating": 5,
+  "commentTitle": "It's not bad",
+  "commentContent": "It could be better",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "620e8faa4967656c60b4c3c5"
+  },
+  "movieid": "620c3f8b8904a9803dff328e",
+  "userid": 65,
+  "rating": 5,
+  "commentTitle": "Good",
+  "commentContent": "I like it",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "620e8fec4967656c60b4c3ee"
+  },
+  "movieid": "620c3f8b8904a9803dff328e",
+  "userid": 65,
+  "rating": 9,
+  "commentTitle": "Top",
+  "commentContent": "Best Season ever",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "620e90094967656c60b4c3fc"
+  },
+  "movieid": "620c40452f6976e1cc1e35f0",
+  "userid": 65,
+  "rating": 9,
+  "commentTitle": "Nice Movie",
+  "commentContent": "One of my favorties",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "620e90464967656c60b4c40b"
+  },
+  "movieid": "620c3ee48904a9803dff328a",
+  "userid": 65,
+  "rating": 1,
+  "commentTitle": "Didn't like it",
+  "commentContent": "Too shallow",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "620ecd2b0367852f9f450315"
+  },
+  "movieid": "620c3f8b8904a9803dff328e",
+  "userid": 65,
+  "rating": 10,
+  "commentTitle": "Awesome series",
+  "commentContent": "I looove it",
+  "__v": 0
+}]

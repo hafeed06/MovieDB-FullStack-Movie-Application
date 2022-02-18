@@ -2,7 +2,7 @@ import axios from "axios";
 import { getJavaMovieViews } from "./JavaAPI";
 
 const NodeAPI = axios.create({
-    baseURL: "http://localhost:5000/api"
+    baseURL: process.env.REACT_APP_APINODE_URL
 })
 
 

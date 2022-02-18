@@ -21,7 +21,7 @@ import java.util.Map;
 
 @RestController
 //TODO Change Origin to real backend URL in all of the controllers.
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class HomeController {
 
     @Autowired

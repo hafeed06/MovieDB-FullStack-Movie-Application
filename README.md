@@ -1,6 +1,6 @@
 # MovieDB-FullStack-Movie-Application 
 
-This is a cross MERN (MongoDB, Express, React, NodeJS) - React - Java - SpringBoot - PostgreSQL SQL Web Movie Streaming Application.  
+This is a cross MERN (MongoDB, Express, React, NodeJS) - React - Java - SpringBoot - PostgreSQL Web Movie Streaming Application.  
 This application is made with React on the Front End  
 The application uses 2 backends:  
 One is a NodeJS Server that uses Express Frameworks and connects to a MongoDB Database using the Mongoose package.   

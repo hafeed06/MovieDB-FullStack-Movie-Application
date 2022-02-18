@@ -38,7 +38,16 @@ const MovieCard = ({movieid, title, category,releaseDate, movieDirector, addedDa
                 {category.toUpperCase()}
               </Typography>
               <BasicRating movieid={movieid} score={score} views={views}/> 
-             
+
+              { score > 0 ? (
+              <Link to={`/reviews/${movieid}`}>
+              <Button variant="outlined" sx={{marginTop: 1}}>View all Ratings</Button>
+              </Link>
+              )
+              :
+              <Button variant="outlined" sx={{marginTop: 1, background : '#5c595a', color:'white', border:'solid 1px #5c595a'}} disabled>View all Ratings</Button>
+              }
+
             </CardContent>
             <SimpleAccordion releaseDate={releaseDate} movieDirector={movieDirector} addedDate={addedDate}/>
           </CardActionArea>

@@ -3,8 +3,8 @@ import redirectToHome from './redirections/redirectToHome';
 
 const cookies = new Cookies(); 
 const Logout = () => {
+    console.log("Log out started")
     cookies.remove('token')
-    //TODO Set Recoil State of user to not authenticated
     redirectToHome() 
 };
 

@@ -6,10 +6,10 @@ const mainTheme = createTheme({
       main: '#1F8FDE'
     },
     success: {
-        main: '#0FBB53'
+        main: '#14b817'
     },
     dark: {
-      main: '#2F3133'
+      main: '#FFFFFF'
   },
 
   },

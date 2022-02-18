@@ -67,39 +67,45 @@ const ListMovies = () => {
         <div>
             {movieList.length === 0 && <LoadingBar />}
             <Box sx={{ flexGrow: 1 }} mt={2} ml={5} mr={5} mb={5}>
-                <div className="inputContainer">
-                    {/* SEARCH BAR */ }
-                    <TextField
-                        id="standard-basic"
-                        label="Search for a movie ... "
-                        variant="outlined"
-                        onChange={handleSearchChange}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon /> Title: 
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <FormControl style={{width: '20%'}}>
-                <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
-                <Select 
-                name="sort"
-                onChange = {handleSort}
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Sort By"
-                defaultValue="default"
-                >
-                <MenuItem value="default">Default</MenuItem>
-                <MenuItem value="rating">Rating</MenuItem>
-                <MenuItem value="views">Views</MenuItem>
-                <MenuItem value="newest">Newest</MenuItem>
-                </Select>
-            </FormControl>
 
-                </div>
+                {movieList.length > 0 && (
+               <div className="inputContainer">
+               {/* SEARCH BAR */ }
+               <TextField
+                   id="standard-basic"
+                   label="Search for a movie ... "
+                   variant="outlined"
+                   onChange={handleSearchChange}
+                   InputProps={{
+                       startAdornment: (
+                           <InputAdornment position="start">
+                               <SearchIcon /> Title: 
+                           </InputAdornment>
+                       ),
+                   }}
+               />
+               <FormControl style={{width: '20%'}}>
+           <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+           <Select 
+           name="sort"
+           onChange = {handleSort}
+           labelId="demo-simple-select-label"
+           id="demo-simple-select"
+           label="Sort By"
+           defaultValue="default"
+           >
+           <MenuItem value="default">Default</MenuItem>
+           <MenuItem value="rating">Rating</MenuItem>
+           <MenuItem value="views">Views</MenuItem>
+           <MenuItem value="newest">Newest</MenuItem>
+           </Select>
+       </FormControl>
+           </div>
+                )}
+ 
+
+
+
                 <Grid container spacing={2} alignItems="stretch">
 
                     {

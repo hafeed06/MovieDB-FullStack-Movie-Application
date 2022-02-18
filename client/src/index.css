@@ -42,6 +42,10 @@ a {
   margin-bottom:20px; 
 }
 
+.containerSpaced {
+  margin:20px
+}
+
 .inputContainer {
   display: flex;
   justify-content: space-between;

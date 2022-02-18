@@ -15,6 +15,17 @@ router.post('/add',  async (req,res) => {
     }
 })
 
+// Get Rating given by movieid
+router.get('/:id', async (req,res) => {
+    try {
+        const movieId = req.params.id
+        const getRating = await mydb.getRatingById(movieId)
+        res.status(200).json(getRating)
+      } catch (error) {
+          res.status(200).send({})
+      }
+})
+
 router.get('/score/:id', async (req,res) => {
     try {
         const movieId = req.params.id

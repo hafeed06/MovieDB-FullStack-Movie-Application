@@ -43,11 +43,17 @@ That's it, your default browser should start and now you should be able to use t
 AlmaLinux is just a prefered choice since it is the best substitute to CentOS, but you can use any Linux distribution as long as you know how install the requirements. 
 
 1 - Go to AWS and create a new EC2 Instance, choose AlmaLinux 
+
 2 - Define storage and other details ... For security groups, add the following TCP ports: 
+
   80 : For Apache
+  
   5000 : For NodeJS
+  
   8080 : For TomCat 
+  
   5432 : For PostgreSQL
+  
   27001 : For MongoDB (You might also use MongoDB Atlas which gives you a MongoDB cluster hosted by MongoDB itself, without having to install anything) 
   PS : Do not forget to add the Ports to the inbound roules in your instance security group, otherwise the application won't work. 
 3 - Download a new key for AWS if you don't already have one 

@@ -1,17 +1,17 @@
 # MovieDB-FullStack-Movie-Application 
 
-This is a cross MERN (MongoDB, Express, React, NodeJS) - React - Java - SpringBoot - PostgreSQL SQL Web Movie Streaming Application. 
-This application is made with React on the Front End 
-The application uses 2 backends:
-One is a NodeJS Server that uses Express Frameworks and connects to a MongoDB Database using the Mongoose package. 
-The second backend is a Java - Spring Boot server that uses Hibernate to manage a PostgreSQL database. 
+This is a cross MERN (MongoDB, Express, React, NodeJS) - React - Java - SpringBoot - PostgreSQL SQL Web Movie Streaming Application.  
+This application is made with React on the Front End  
+The application uses 2 backends:  
+One is a NodeJS Server that uses Express Frameworks and connects to a MongoDB Database using the Mongoose package.   
+The second backend is a Java - Spring Boot server that uses Hibernate to manage a PostgreSQL database.   
 
-Some of the functionalities of the application are handled by the Java backend, such as Authentication and Authorization, which are done using JWT and Spring Security, as well as user roles, contacts ... Etc 
-Other functionalities are handled by the NodeJS backend. Mainly the rating system that shows how many users rated a specific movies and what are their comments. 
-The main functionnality which is storing and showing movie information is handled by both the Java and NodeJS backend. 
-For instance part of the information of a movie are stored in the MongoDB Database, other parts are stored in PostgreSQL. 
-Therefore to fetch the full information of a movie, an API call must be made to the NodeJS backend, then inside the first API call another API call must be made to the Java backend. 
-Finally the returned results will be aggregated in one object before being passed to the page to be rendered nicely and accurately. 
+Some of the functionalities of the application are handled by the Java backend, such as Authentication and Authorization, which are done using JWT and Spring Security, as well as user roles, contacts ... Etc  
+Other functionalities are handled by the NodeJS backend. Mainly the rating system that shows how many users rated a specific movies and what are their comments.  
+The main functionnality which is storing and showing movie information is handled by both the Java and NodeJS backend.  
+For instance part of the information of a movie are stored in the MongoDB Database, other parts are stored in PostgreSQL.  
+Therefore to fetch the full information of a movie, an API call must be made to the NodeJS backend, then inside the first API call another API call must be made to the Java backend.  
+Finally the returned results will be aggregated in one object before being passed to the page to be rendered nicely and accurately.  
 
 This is a mock application, when the user clicks on a movie they will only be able to see the youtube trial of said movie, but you might easily adjust it to your needs if you 
 run a movie streaming business. 

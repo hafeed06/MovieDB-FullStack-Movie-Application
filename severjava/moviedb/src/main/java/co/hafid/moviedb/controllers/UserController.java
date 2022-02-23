@@ -73,15 +73,15 @@ public class UserController {
         return userService.isUsernameRegistered(user);
     }
 
-    // ------- AUTHENTICATION FOR USER ----------- //
-
-    @PostMapping(path = "/users/authUser")
-    public ResponseEntity<Boolean> authUser(@RequestBody User user) {
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
-        if (userService.Authenticate(user) == true) return ResponseEntity.status(200).body(true);
-        else return ResponseEntity.status(401).body(false);
-    }
+//    // ------- AUTHENTICATION FOR USER ----------- //
+//
+//    @PostMapping(path = "/users/authUser")
+//    public ResponseEntity<Boolean> authUser(@RequestBody User user) {
+//        System.out.println(user.getUsername());
+//        System.out.println(user.getPassword());
+//        if (userService.Authenticate(user) == true) return ResponseEntity.status(200).body(true);
+//        else return ResponseEntity.status(401).body(false);
+//    }
 
     // ------ GET THE CURRENT USER ----------- //
     @GetMapping("/users/current")

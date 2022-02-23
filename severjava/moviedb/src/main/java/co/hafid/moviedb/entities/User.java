@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import java.util.*;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -33,6 +34,12 @@ public class User {
             nullable = false
     )
     private String password;
+    @OneToMany(
+            targetEntity = Role.class,
+            cascade = ALL
+    )
+    @JoinColumn(name = "userid", referencedColumnName = "userid")
+    private List<Role> roles;
 
 //    @OneToMany(targetEntity = Role.class, cascade=CascadeType.ALL)
 //    // Referenced Column name is the name of the joined column
@@ -61,13 +68,13 @@ public class User {
     }
 
 
-//    public List<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(List<Role> roles) {
-//        this.roles = roles;
-//    }
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public void setPassword(String password) {
 

@@ -7,10 +7,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity(name = "Role")
 @Table(
         name   = "roles",
-        schema = "public",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "roles_user_id_unique", columnNames = "userid")
-        }
+        schema = "public"
 )
 public class Role {
 
@@ -27,27 +24,13 @@ public class Role {
             nullable = false
     )
     private String role;
-    @Column(
-            name = "userid",
-            nullable = false
-    )
-    private Integer userid;
 
 
-    public Role(String role, Integer userid) {
+    public Role(String role) {
         this.role = role;
-        this.userid = userid;
     }
 
     public Role() {}
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
 
     public Long getRoleId() {
         return roleId;

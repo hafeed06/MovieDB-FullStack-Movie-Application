@@ -47,6 +47,13 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    // Add 1 User Test
+    public User addUser2(User user) {
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10)));
+        System.out.println(user.toString());
+        return userRepository.save(user);
+    }
+
     // Delete 1 User
     public void deleteUser(Long userid) {
         userRepository.deleteById(userid);

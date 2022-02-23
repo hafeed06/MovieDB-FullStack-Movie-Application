@@ -62,6 +62,7 @@ export const addUser = async (data) => {
       try {
         await addAddress(addressData)
         console.log("The Address Has Been Added")
+        return true; 
       } catch (error) {
         console.error(error);
       }

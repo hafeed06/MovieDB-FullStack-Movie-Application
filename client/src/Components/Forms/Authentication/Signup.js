@@ -14,6 +14,7 @@ import JDBCDateParsing from '../../../utils/JDBCDateParsing';
 import { Link } from "react-router-dom"
 // Importing Java API & its Actions. 
 import {addUser} from '../../../apis/JavaAPI'
+import redirectToHome from '../../../utils/redirections/redirectToHome';
 
 // Input Styles
 const bigInput = {width:'95%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
@@ -52,7 +53,8 @@ const SignupForm = () => {
     const handleSubmit = async (e) => {
       e.preventDefault()
       // Call to javaAPI
-      addUser(data)
+      const addUserResult = await addUser(data)
+      addUserResult && redirectToHome()
     }
 
     // Logging  - Dev Only 

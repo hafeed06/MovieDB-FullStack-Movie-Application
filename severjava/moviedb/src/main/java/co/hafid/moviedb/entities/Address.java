@@ -86,7 +86,14 @@ public class Address {
         this.contactId = contactId;
     }
 
-    public Address(String country, String area, String city, String street, Integer number, Long contactId) {
+    public Address(
+            String country,
+            String area,
+            String city,
+            String street,
+            Integer number,
+            Long contactId
+    ) {
         this.country = country;
         this.area = area;
         this.city = city;
@@ -97,16 +104,5 @@ public class Address {
 
     public Address() {}
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "addressId=" + addressId +
-                ", country='" + country + '\'' +
-                ", area='" + area + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", number=" + number +
-                ", contactId=" + contactId +
-                '}';
-    }
+
 }

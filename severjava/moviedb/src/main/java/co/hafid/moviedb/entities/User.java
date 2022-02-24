@@ -1,15 +1,10 @@
 package co.hafid.moviedb.entities;
-
-import org.springframework.security.crypto.bcrypt.BCrypt;
-
 import javax.persistence.*;
 
 import java.util.*;
 
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.GenerationType.IDENTITY;
-import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "User")
 @Table(
@@ -38,6 +33,7 @@ public class User {
     private String password;
     @OneToMany(
             targetEntity = Role.class,
+            fetch = FetchType.EAGER,
             cascade = ALL
     )
     @JoinColumn(name = "userid", referencedColumnName = "userid")
@@ -58,7 +54,12 @@ public class User {
         this.contacts = contacts;
     }
 
-    public User(String username, String password, List<Role> roles, List<Contact> contacts) {
+    public User(
+            String username,
+            String password,
+            List<Role> roles,
+            List<Contact> contacts
+    ) {
         this.username = username;
         this.password = password;
         this.roles = roles;

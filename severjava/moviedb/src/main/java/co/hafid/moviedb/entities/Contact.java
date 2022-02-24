@@ -15,7 +15,6 @@ import static javax.persistence.GenerationType.SEQUENCE;
         schema = "public",
         uniqueConstraints = {
                 @UniqueConstraint(name = "contact_email_unique", columnNames = "email"),
-//                @UniqueConstraint(name = "contact_userid_unique", columnNames = "userid")
         }
 )
 public class Contact {
@@ -52,20 +51,30 @@ public class Contact {
     @Column(name = "userid")
     private Long userid;
 
-//    @OneToMany(
-//            cascade = ALL,
-//            targetEntity = Address.class
-//    )
-//    @JoinColumn(name = "contact_id", referencedColumnName = "contact_id")
-//    private List<Address> addresses;
+    @OneToMany(
+            cascade = ALL,
+            targetEntity = Address.class,
+            fetch = FetchType.EAGER
+    )
+    @JoinColumn(name = "contact_id", referencedColumnName = "contact_id")
+    private List<Address> addresses;
 
     public Contact() {}
 
-    public Contact(String name, Date birthdate, String gender, String email) {
+    public Contact(
+            String name,
+            Date birthdate,
+            String gender,
+            String email,
+            Long userid,
+            List<Address> addresses
+    ) {
         this.name = name;
         this.birthdate = birthdate;
         this.gender = gender;
         this.email = email;
+        this.userid = userid;
+        this.addresses = addresses;
     }
 
     public Long getUserid() {
@@ -75,6 +84,15 @@ public class Contact {
     public void setUserid(Long userid) {
         this.userid = userid;
     }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
 
     public Long getContactId() {
         return contactId;
@@ -114,19 +132,5 @@ public class Contact {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "contactId=" + contactId +
-                ", name='" + name + '\'' +
-                ", birthdate=" + birthdate +
-                ", gender='" + gender + '\'' +
-                ", email='" + email + '\'' +
-                ", userid=" + userid +
-                '}';
     }
 }

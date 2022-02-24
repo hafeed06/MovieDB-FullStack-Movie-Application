@@ -44,8 +44,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
 
         //TODO Gonna need this later
-//        .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/admin/login").permitAll()
+        //        .antMatchers("/admin/**").hasRole("ADMIN")
+        //                .antMatchers("/admin/login").permitAll()
+        // I'm using Authority so I should use this instead:
+        //                 .antMatchers(
+        //                        "/authenticate",
+        //                        "/contacts/addContact/**",
+        //                        "/users/addRole/**",
+        //                        "/addresses/addAddress/**",
+        //                        "/users/addUser/**"
+        //                ).hasAnyAuthority("USER", "ADMIN")
 
         http.csrf()
                 .disable()

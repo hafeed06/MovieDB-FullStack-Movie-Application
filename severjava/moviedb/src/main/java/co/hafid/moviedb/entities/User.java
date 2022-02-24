@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.*;
 
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -23,6 +24,7 @@ public class User {
     @GeneratedValue(
             strategy = IDENTITY
     )
+    @Column(name="userid")
     private Long userid;
     @Column(
             name = "username",
@@ -41,11 +43,27 @@ public class User {
     @JoinColumn(name = "userid", referencedColumnName = "userid")
     private List<Role> roles;
 
-//    @OneToMany(targetEntity = Role.class, cascade=CascadeType.ALL)
-//    // Referenced Column name is the name of the joined column
-//    @JoinColumn(name="userid")
-//    private List<Role> roles;
+    @OneToMany(
+            cascade = ALL,
+            targetEntity = Contact.class
+    )
+    @JoinColumn(name = "userid", referencedColumnName = "userid")
+    private List<Contact> contacts;
 
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public User(String username, String password, List<Role> roles, List<Contact> contacts) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.contacts = contacts;
+    }
 
     public Long getUserid() {
         return userid;
@@ -80,13 +98,14 @@ public class User {
 
         this.password = password;
     }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+//
+//    public User(String username, String password) {
+//        this.username = username;
+//        this.password = password;
+//    }
 
     public User() {}
+
 
     @Override
     public String toString() {
@@ -94,6 +113,8 @@ public class User {
                 "userid=" + userid +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", roles=" + roles +
+                ", contact=" + contacts+
                 '}';
     }
 }

@@ -9,6 +9,7 @@ import co.hafid.moviedb.repositories.UserRepository;
 import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -47,12 +49,12 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    // Add 1 User Test
-    public User addUser2(User user) {
-        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10)));
-        System.out.println(user.toString());
-        return userRepository.save(user);
-    }
+//    // Add 1 User Test
+//    public User addUser2(User user) {
+//        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10)));
+//        System.out.println(user.toString());
+//        return userRepository.save(user);
+//    }
 
     // Delete 1 User
     public void deleteUser(Long userid) {
@@ -88,8 +90,14 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         co.hafid.moviedb.entities.User dbUser = userRepository.findByUsername(username);
-        // TODO -- Fetch Roles as Well
-        return new org.springframework.security.core.userdetails.User(dbUser.getUsername(), dbUser.getPassword(), new ArrayList<>());
+        // Here I fetched the roles from the database for the specific user
+        // and added them or SpringSecurity userDetails
+        List<Role> roles = dbUser.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for(Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRole()));
+        }
+        return new org.springframework.security.core.userdetails.User(dbUser.getUsername(), dbUser.getPassword(), authorities);
     }
 }
 

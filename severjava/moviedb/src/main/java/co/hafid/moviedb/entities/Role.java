@@ -24,6 +24,10 @@ public class Role {
             nullable = false
     )
     private String role;
+    @Column(
+            name = "userid"
+    )
+    private Long userid;
 
 
     public Role(String role) {
@@ -31,6 +35,16 @@ public class Role {
     }
 
     public Role() {}
+
+
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
 
     public Long getRoleId() {
         return roleId;

@@ -3,7 +3,9 @@ package co.hafid.moviedb.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -13,7 +15,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
         schema = "public",
         uniqueConstraints = {
                 @UniqueConstraint(name = "contact_email_unique", columnNames = "email"),
-                @UniqueConstraint(name = "contact_userid_unique", columnNames = "userid")
+//                @UniqueConstraint(name = "contact_userid_unique", columnNames = "userid")
         }
 )
 public class Contact {
@@ -28,8 +30,7 @@ public class Contact {
     private Long contactId;
     @Column(
             name = "name",
-            nullable = false,
-            columnDefinition = "TEXT"
+            nullable = false
     )
     private String name;
     @Column(
@@ -39,27 +40,39 @@ public class Contact {
     private Date birthdate;
     @Column(
             name = "gender",
-            nullable = false,
-            columnDefinition = "TEXT"
+            nullable = false
     )
     private String gender;
     @Column(
             name = "email",
-            nullable = false,
-            columnDefinition = "TEXT"
+            nullable = false
     )
     private String email;
 
     @Column(name = "userid")
     private Long userid;
 
+//    @OneToMany(
+//            cascade = ALL,
+//            targetEntity = Address.class
+//    )
+//    @JoinColumn(name = "contact_id", referencedColumnName = "contact_id")
+//    private List<Address> addresses;
+
     public Contact() {}
 
-    public Contact(String name, Date birthdate, String gender, String email, Long userid) {
+    public Contact(String name, Date birthdate, String gender, String email) {
         this.name = name;
         this.birthdate = birthdate;
         this.gender = gender;
         this.email = email;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 
@@ -103,13 +116,6 @@ public class Contact {
         this.email = email;
     }
 
-    public Long getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Long userid) {
-        this.userid = userid;
-    }
 
 
     @Override

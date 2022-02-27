@@ -89,9 +89,8 @@ public class UserController {
         String jwtToken = headers.get("authorization").split(" ")[1];
         String usernameFromJWT = jwtUtility.getUsernameFromToken(jwtToken);
         User user = userService.getByUsername(usernameFromJWT);
-        User userWithoutPassword = new User();
-        userWithoutPassword.setUserid(user.getUserid());
-        userWithoutPassword.setUsername(user.getUsername());
+        User userWithoutPassword = userService.getUser(user.getUserid());
+        userWithoutPassword.setPassword(null);
         return userWithoutPassword;
     }
 

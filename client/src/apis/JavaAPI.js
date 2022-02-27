@@ -62,6 +62,7 @@ export const authUser = async (data, setSubmitted, setError) => {
 
   try {
     await JavaAPI.post('/authenticate', data).then(res => {
+      console.log(res)
       cookies.remove('token')
       let tokenExpiry = new Date()
       tokenExpiry.setHours(tokenExpiry.getHours() + 5)
@@ -72,7 +73,7 @@ export const authUser = async (data, setSubmitted, setError) => {
     setSubmitted(true)
     redirectToHome()
   } catch (error) {
-    console.error(error)
+    console.error(error.response.data.cause.message)
     console.log("Failure")
     setSubmitted(true)
     setError(true)
@@ -81,45 +82,39 @@ export const authUser = async (data, setSubmitted, setError) => {
 
 // Check user Authentication 
 export const CheckAuth = async () => {
-  let isAuth = null; 
+  console.log("Check Auth is Running")
   try {
       console.log(headers)
       let res = await JavaAPI.get('/users/current', {headers: headers})
-      isAuth = true
       console.log("Auth Succeeded")
+      return true
   } catch (error) {
-      isAuth = false; 
       console.log("Auth Failed")
       console.log(error.response)
+      return false
   }
-  return isAuth
 };
 
 
 // Get User Full Information 
 
 export const getFullInformation = async () => {
-  let userInformation = {}
     try {
-      let basicInfo = await JavaAPI.get('/users/current', {headers: headers})
-      userInformation = {...basicInfo.data} 
-      delete userInformation["password"]
-      let id = userInformation.userid 
-      try {
-          let contactInfo = await JavaAPI.get(`/contacts/${id}`, {headers: headers})
-          userInformation = {...userInformation, ...contactInfo.data}
-          let contactId = userInformation.contactId
-            try {
-              let addressInfo = await JavaAPI.get(`/addresses/${contactId}`, {headers: headers})
-              userInformation = {...userInformation, ...addressInfo.data}
-              return userInformation
-            } catch (error) {
-              console.log(error)
-            }
-      } catch (error) {
-          console.log(error)
+      let fetchedInfo = await JavaAPI.get('/users/current', {headers: headers})
+      let rawInfo = {...fetchedInfo.data} 
+      // Forming UserInformation Data
+      // Getting and Setting the roles
+      let roles = []; rawInfo.roles.map(e => roles.push(e.role))
+      // Getting the full name (First Contact)
+      let fullName = rawInfo.contacts[0].name
+      const userInformation = {
+        username: rawInfo.username, 
+        userid: rawInfo.userid, 
+        roles: roles, 
+        name: fullName
       }
-      console.log("User id is => " + id)
+      console.log(userInformation)
+      return userInformation
     } catch (error) {
         console.log(error.response)
     }

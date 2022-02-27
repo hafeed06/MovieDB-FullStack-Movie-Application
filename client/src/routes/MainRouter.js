@@ -10,7 +10,7 @@ import { CheckAuth } from '../apis/JavaAPI';
 import TestFullInformation from '../Tests/TestFullInformation';
 import AddRating from '../pages/AddRating';
 import {useRecoilValue} from 'recoil'
-import { authState } from '../Atoms';
+import { authState, userInformationState } from '../Atoms';
 import WatchMovie from '../pages/WatchMovie';
 import Base64Upload from '../Tests/Base64Upload';
 import ViewReviews from '../pages/ViewReviews';
@@ -18,6 +18,7 @@ import ViewReviews from '../pages/ViewReviews';
 const Mainrouter = () => {
 
     const isAuth = useRecoilValue(authState)
+    const userInformation = useRecoilValue(userInformationState)
     const [loadNavbar, setLoadNavbar] = useState(null)
 
 
@@ -29,33 +30,51 @@ const Mainrouter = () => {
     const guestLinks = ['/login', '/signup']
     const guestSettings = []
 
+    const userPages = ['Watch Movies']
+    const userLinks = ['/listmovies']
+    const userSettings = ['Profile', 'Account', 'Logout']
 
-
-    
-
-    const userPages = ['Watch Movies', 'Add Movie']
-    const userLinks = ['/listmovies', '/newmovie']
-    const userSettings = ['Profile', 'Account', 'Dashboard', 'Logout']
-
+    const adminPages = ['Add Movie']
+    const adminLinks = ['/newmovie']
+    const adminSettings = ['Dashboard']
     useEffect(() => {
-        // Handling what navbar options the user will have based on authentication results 
-        if(isAuth) {
-            setPages(userPages)
-            setLinks(userLinks)
-            setSettings(userSettings)
+        let displayPages = []
+        let displayLinks = []
+        let displaySettings = []
+        if(isAuth && userInformation) {
+            if(userInformation.roles.includes("ADMIN")) {
+                displayPages = [...userPages, ...adminPages]
+                displayLinks = [...userLinks, ...adminLinks]
+                displaySettings = [...userSettings, ...adminSettings]
+            }
+            else {
+                displayPages = [...userPages]
+                displayLinks = [...userLinks]
+                displaySettings = [...userSettings]
+            }
+            console.log("Now we are in second case")
         }
-        else if(isAuth == false) {
-            setPages(guestPages)
-            setLinks(guestLinks)
-            setSettings(guestSettings)
+        else if(!isAuth && !userInformation) {
+            console.log("We are in this case apparently")
+            displayPages = [...guestPages]
+            displayLinks = [...guestLinks]
+            displaySettings = [...guestSettings]
         }
+        setPages([...displayPages])
+        setLinks([...displayLinks])
+        setSettings([...displaySettings])
         setLoadNavbar(true)
-        console.log("Router useEffect Ran => " + isAuth)
-}, [isAuth])
+}, [isAuth, userInformation])
+
+// useEffect(() => {
+//     setPages([...displayPages])
+//     setLinks([...displayLinks])
+//     setSettings([...displaySettings])
+// },[displayPages])
 
     return (
         <Router>
-            {loadNavbar && <Navbar pages = {pages} links = {links} settings = {settings} /> }
+            {pages.length > 0 && <Navbar pages = {pages} links = {links} settings = {settings} userInformation={userInformation} /> }
             <Routes>
                 // Add Redirect to Login page is user is not logged in on most routes
                 <Route exact path="/" element={isAuth? <Home/> : isAuth === false && <Login />}/>

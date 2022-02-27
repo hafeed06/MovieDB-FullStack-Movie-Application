@@ -55,9 +55,9 @@ const LoginForm = () => {
             </form>
             )}
            {(submitted && !error) && (
-             <div className='inlineTextIcon'>
-               <CheckBoxIcon fontColor="green" />
-                <Typography variant="body2" color="green">Successfully Authenticated</Typography>
+             <div className='inlineTextIcon' style={{padding: 10}}>
+               <CheckBoxIcon sx={{paddingRight:1, color:'green'}}/>
+                <Typography variant="body1" color="green">Successfully Authenticated</Typography>
              </div>
            
            )}

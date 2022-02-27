@@ -19,7 +19,6 @@ import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 // import getUserFullInformation from '../utils/getUserFullInformation';
 import capitalize from '../../utils/capitalize'
-import { userInformationState } from '../../Atoms';
 import { deepPurple } from '@mui/material/colors';
 import { avatarName } from '../../utils/avatarName';
 import {useRecoilState, useRecoilValue } from 'recoil'
@@ -31,8 +30,9 @@ const links = []
 const settings = [];
 
 
-const Navbar = ({ pages, links, settings}) => {
-    const userInformation = useRecoilValue(userInformationState)
+const Navbar = ({ pages, links, settings, userInformation}) => {
+    console.log("We are inside navbar") 
+    console.log(pages)
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [isAuth, setIsAuth] = useRecoilState(authState)
@@ -99,7 +99,7 @@ const Navbar = ({ pages, links, settings}) => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page, key) => (
+                            { userInformation && pages.map((page, key) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
@@ -127,8 +127,8 @@ const Navbar = ({ pages, links, settings}) => {
                             </Button>
                         ))}
                     </Box>
-                    {Object.keys(userInformation).length > 0 && <Typography pr={2}>{
-                        capitalize(userInformation.name)
+                    {userInformation && <Typography pr={2}>{
+                         userInformation.name && capitalize(userInformation.name)
                     }</Typography>}
                     {isAuth && (<Box sx={{ flexGrow: 0 }}>
 
@@ -136,9 +136,7 @@ const Navbar = ({ pages, links, settings}) => {
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar sx={{ bgcolor: deepPurple[500] }}>
 
-                    {Object.keys(userInformation).length > 0 && avatarName(userInformation.name) }
-    
-
+                    {userInformation && userInformation.name && avatarName(userInformation.name) }
 
                     </Avatar>
                             </IconButton>
@@ -159,7 +157,7 @@ const Navbar = ({ pages, links, settings}) => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
+                            {userInformation && settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     {setting === 'Logout' ?
                                         <Typography textAlign="center" onClick={Logout}>{setting}</Typography>

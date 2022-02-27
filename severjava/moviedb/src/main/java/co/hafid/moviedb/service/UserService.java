@@ -31,6 +31,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    ContactRepository contactRepository;
+
     public UserService() {
     }
 

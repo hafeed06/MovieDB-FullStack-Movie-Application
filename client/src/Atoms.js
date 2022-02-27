@@ -10,6 +10,6 @@ export const authState = atom(
 export const userInformationState = atom(
     {
         key: "userInformation",
-        default: {}
+        default: null
     }
 )

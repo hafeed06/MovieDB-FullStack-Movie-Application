@@ -22,10 +22,17 @@ const App = () => {
       result = await CheckAuth();
       // Setting the Global Authentication State of the User
       setIsAuth(result)
+      console.log("Result in App.js for Authentication is =>" + result)
       // Setting the Global user information state of the user
       if(result) {
-        const userInformation = await getFullInformation() 
-        setUserInfo(userInformation)
+        try {
+          const userInformation = await getFullInformation() 
+          setUserInfo(userInformation)
+        } catch (error) {
+          console.log("Problem with getting the user Info")
+        }
+
+
       }
     }
     !isAuth && AuthResult();

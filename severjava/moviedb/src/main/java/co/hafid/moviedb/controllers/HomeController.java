@@ -6,6 +6,7 @@ import co.hafid.moviedb.models.JWTResponse;
 import co.hafid.moviedb.service.UserService;
 import co.hafid.moviedb.utilities.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,7 +45,7 @@ public class HomeController {
     }
 
     @PostMapping("/authenticate")
-    public JWTResponse authenticate(@RequestBody JWTRequest jwtRequest) throws Exception{
+    public ResponseEntity<Object>  authenticate(@RequestBody JWTRequest jwtRequest) throws Exception{
 
         try {
             authenticationManager.authenticate(
@@ -53,20 +54,24 @@ public class HomeController {
                             jwtRequest.getPassword()
                     )
             );
+            final UserDetails userDetails
+                    = userService.loadUserByUsername(jwtRequest.getUsername());
+
+            final String token =
+                    jwtUtility.generateToken(userDetails);
             System.out.println("SUCCESSFUL AUTHENTICATION");
+            return ResponseEntity.status(200).body(new JWTResponse(token));
         } catch (BadCredentialsException e) {
             System.out.println("AUTHENTICATION FAILED");
-            throw new Exception("INVALID_CREDENTIALS", e);
-
+            return ResponseEntity.status(401).body(new Exception("INVALID_CREDENTIALS", e));
         }
-
-        final UserDetails userDetails
-                = userService.loadUserByUsername(jwtRequest.getUsername());
-
-        final String token =
-                jwtUtility.generateToken(userDetails);
-
-        return  new JWTResponse(token);
+          catch (Exception e) {
+              throw new Exception(e);
+          }
+        /* TODO : Handle Exception, if the username is correct and password is not
+        This will generate a correct exception, but if both are not correct it will not
+        give the correct exception
+         */
     }
 
 
